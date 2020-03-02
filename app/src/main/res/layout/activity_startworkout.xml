@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="100dp"
+        android:text="Time:"
+         />
+    <TextView
+        android:id="@+id/pace"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="100dp"
+        android:text="Pace:"
+        android:layout_below="@id/time"
+        />
+    <TextView
+        android:id="@+id/input_time"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="100dp"
+        android:layout_toRightOf="@id/time"
+        android:hint="00:00:00"
+        />
+    <TextView
+        android:id="@+id/input_pace"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_below="@id/input_time"
+        android:layout_toRightOf="@id/pace"
+        android:hint="pace"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:gravity="center_horizontal"
+        android:textSize="20dp"
+        android:text="Current Workout Session"/>
+    <TextView
+        android:id="@+id/walk"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:background="@color/colorPrimary"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="200dp"
+        android:text="WALK"
+        app:layout_constraintLeft_toLeftOf="@id/run" />
+
+    <TextView
+        android:id="@+id/run"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="200dp"
+        android:background="@color/colorPrimary"
+        android:layout_toRightOf="@id/walk"
+        android:text="RUN" />
+
+    <TextView
+        android:id="@+id/cycle"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorPrimary"
+        android:layout_below="@id/walk"
+        android:text="CYCLE"
+
+
+        />
+
+    <TextView
+        android:id="@+id/other"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/run"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorPrimary"
+        android:layout_toRightOf="@id/cycle"
+        android:text="OTHER" />
+
+    <Button
+        android:id="@+id/startbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Start" />
+    <Button
+        android:id="@+id/pausebutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@id/startbutton"
+        android:layout_toRightOf="@id/startbutton"
+        android:text="Pause" />
+
+
+    <Button
+        android:id="@+id/resetbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@id/pausebutton"
+        android:layout_toEndOf="@id/pausebutton"
+        android:text="Reset" />
+
+    <Button
+        android:id="@+id/lapbutton"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@id/resetbutton"
+        android:layout_toRightOf="@id/resetbutton"
+        android:text="LAP" />
+
+</RelativeLayout>

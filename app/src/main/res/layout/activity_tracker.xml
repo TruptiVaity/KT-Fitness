@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+
+    <TextView
+        android:id="@+id/water"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:background="@color/colorPrimary"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="200dp"
+        android:text="Water"
+        app:layout_constraintLeft_toLeftOf="@id/coffee" />
+
+    <TextView
+        android:id="@+id/coffee"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="200dp"
+        android:background="@color/colorPrimary"
+        android:layout_toRightOf="@id/water"
+        android:text="Coffee" />
+
+    <TextView
+        android:id="@+id/updatewater"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorPrimary"
+        android:layout_below="@id/water"
+        android:text="Update Water Goal"
+
+
+        />
+
+    <TextView
+        android:id="@+id/updatecoffee"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/coffee"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorPrimary"
+        android:layout_toRightOf="@id/updatewater"
+        android:text="Update Coffee Goal" />
+
+
+
+</RelativeLayout>
