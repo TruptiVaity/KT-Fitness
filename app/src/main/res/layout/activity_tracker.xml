@@ -18,10 +18,10 @@
         android:layout_marginLeft="100dp"
         android:layout_marginTop="200dp"
         android:text="Water"
-        app:layout_constraintLeft_toLeftOf="@id/Coffee" />
+        app:layout_constraintLeft_toLeftOf="@id/coffee" />
 
     <TextView
-        android:id="@+id/Coffee"
+        android:id="@+id/coffee"
         android:layout_width="80dp"
         android:layout_height="60dp"
         android:layout_marginLeft="50dp"
@@ -47,7 +47,7 @@
         android:id="@+id/updatecoffee"
         android:layout_width="80dp"
         android:layout_height="60dp"
-        android:layout_below="@id/Coffee"
+        android:layout_below="@id/coffee"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="20dp"
         android:background="@color/colorPrimary"
