@@ -8,20 +8,41 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:title="KT Fitness" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="100dp"
         android:gravity="center_horizontal"
-        android:textSize="20dp"
-        android:text="Welcome to your first step towards Fitness"/>
+        android:text="Welcome to your first step towards Fitness"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/history"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/workoutplanner"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorPrimary"
+        android:text="Workout History" />
+
     <TextView
         android:id="@+id/start_workout"
         android:layout_width="80dp"
         android:layout_height="60dp"
-        android:background="@color/colorPrimary"
         android:layout_marginLeft="100dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="200dp"
+        android:background="@color/colorPrimary"
         android:text="Start WorkOut"
         app:layout_constraintLeft_toLeftOf="@id/water_caffeine_tracker" />
 
@@ -30,19 +51,19 @@
         android:layout_width="80dp"
         android:layout_height="60dp"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="100dp"
-        android:background="@color/colorPrimary"
+        android:layout_marginTop="200dp"
         android:layout_toRightOf="@id/start_workout"
+        android:background="@color/colorPrimary"
         android:text="Water/Caffeine Tracker" />
 
     <TextView
         android:id="@+id/workoutplanner"
         android:layout_width="80dp"
         android:layout_height="60dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="20dp"
-        android:background="@color/colorPrimary"
         android:layout_below="@id/start_workout"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="21dp"
+        android:background="@color/colorPrimary"
         android:text="Workout Planner"
 
 
@@ -54,20 +75,10 @@
         android:layout_height="60dp"
         android:layout_below="@id/water_caffeine_tracker"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="20dp"
-        android:background="@color/colorPrimary"
+        android:layout_marginTop="21dp"
         android:layout_toRightOf="@id/workoutplanner"
-        android:text="Milestones" />
-
-    <TextView
-        android:id="@+id/history"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="20dp"
         android:background="@color/colorPrimary"
-        android:layout_below="@id/workoutplanner"
-        android:text="Workout History" />
+        android:text="Milestones" />
 
     <TextView
         android:id="@+id/friends"
@@ -76,7 +87,7 @@
         android:layout_below="@id/milestones"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="20dp"
-        android:background="@color/colorPrimary"
         android:layout_toRightOf="@id/history"
+        android:background="@color/colorPrimary"
         android:text="Friends" />
 </RelativeLayout>

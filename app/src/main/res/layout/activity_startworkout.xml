@@ -8,6 +8,15 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:title="KT Fitness" />
+
     <TextView
         android:id="@+id/time"
         android:layout_width="80dp"
@@ -40,13 +49,15 @@
         android:layout_toRightOf="@id/pace"
         android:hint="pace"
         />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="60dp"
         android:gravity="center_horizontal"
-        android:textSize="20dp"
-        android:text="Current Workout Session"/>
+        android:text="Current Workout Session"
+        android:textSize="20dp" />
     <TextView
         android:id="@+id/walk"
         android:layout_width="80dp"
