@@ -81,4 +81,14 @@
         android:layout_toRightOf="@id/history"
         android:background="@color/colorPrimary"
         android:text="Friends" />
+
+    <TextView
+        android:id="@+id/step_counting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="30dp"
+        android:textAlignment="center"
+        android:layout_below="@id/friends"/>
 </RelativeLayout>
