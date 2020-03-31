@@ -1,12 +1,11 @@
 package com.example.ktfit;
 
-
 import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,24 +14,27 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.ktfit.data.PlanContract;
-import com.example.ktfit.data.PlanDbHelper;
 
+import com.example.ktfit.data.PlanContract;
+
+import java.io.File;
+import java.io.FileOutputStream;
 
 public class UpdateWorkoutDetails extends AppCompatActivity {
     private DatePicker datePicker;
     private TimePicker updateStartTime, updateEndTime;
-    private String Check_TAG = "MSG";
-    private int mRepeat = 0;
+    private String TAG = "Workout Details";
+    private static final String FILE_NAME = "myworkoutdetails.txt";
+    private String mRepeat;
     Spinner updateRepeatSpinner;
     private Button saveButton;
-    String inviteFriend;
+    EditText updateInviteFriend;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,10 +44,9 @@ public class UpdateWorkoutDetails extends AppCompatActivity {
         datePicker = findViewById(R.id.datePicker);
         updateStartTime = findViewById(R.id.enter_start_time);
         updateEndTime = findViewById(R.id.enter_end_time);
-        EditText updateInviteFriend = findViewById(R.id.input_friend);
+        updateInviteFriend = findViewById(R.id.input_friend);
         updateRepeatSpinner = (Spinner) findViewById(R.id.spinner_repeat);
         saveButton = findViewById(R.id.save_button);
-        inviteFriend = updateInviteFriend.getText().toString();
 
         setupSpinner();
 
@@ -53,8 +54,9 @@ public class UpdateWorkoutDetails extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
-                insertPlan();
-                finish();
+                savePlanInTextFile();
+                //insertPlan();
+                //finish();
             }
         });
 
@@ -66,7 +68,7 @@ public class UpdateWorkoutDetails extends AppCompatActivity {
         // the spinner will use the default layout
         ArrayAdapter spinnerAdapter = ArrayAdapter.createFromResource(this,
                 R.array.array_repeat_options, android.R.layout.simple_spinner_item);
-        Log.v(Check_TAG, "Spinner Entered");
+        Log.v(TAG, "Spinner Entered");
         // Specify dropdown layout style - simple list view with 1 item per line
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 
@@ -81,15 +83,15 @@ public class UpdateWorkoutDetails extends AppCompatActivity {
                 //Toast.makeText(getBaseContext(), "Spinner Selection", Toast.LENGTH_SHORT).show();
                 if (!TextUtils.isEmpty(selection)) {
                     if (selection.equals(getString(R.string.repeat_daily))) {
-                        mRepeat = PlanContract.PlanEntry.REPEAT_DAILY;
+                        mRepeat = "REPEAT DAILY";
                     } else if (selection.equals(getString(R.string.repeat_weekly))) {
-                        mRepeat = PlanContract.PlanEntry.REPEAT_WEEKLY;
+                        mRepeat = "REPEAT DAILY";
                     } else if (selection.equals(getString(R.string.repeat_monthly))) {
-                        mRepeat = PlanContract.PlanEntry.REPEAT_MONTHLY;
+                        mRepeat = "REPEAT MONTHLY";
                     } else if (selection.equals(getString(R.string.repeat_never))) {
-                        mRepeat = PlanContract.PlanEntry.REPEAT_NEVER;
+                        mRepeat = "REPEAT NEVER";
                     } else {
-                        mRepeat = PlanContract.PlanEntry.REPEAT_UNKNOWN; //Unknown
+                        mRepeat = "REPEAT UNKNOWN"; //Unknown
                     }
                 }
             }
@@ -97,12 +99,47 @@ public class UpdateWorkoutDetails extends AppCompatActivity {
             // Because AdapterView is an abstract class, onNothingSelected must be defined
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                mRepeat = 0; // Unknown
+                mRepeat = getString(R.string.repeat_unknown); // Unknown
             }
         });
     }
 
+
     @RequiresApi(api = Build.VERSION_CODES.M)
+    private void savePlanInTextFile() {
+        try {
+
+            String fileContents = String.valueOf(datePicker.getMonth()).concat(":"+ datePicker.getDayOfMonth())
+                    .concat(":"+ datePicker.getYear())
+                    .concat("\t"+ updateStartTime.getHour()).concat(":"+updateStartTime.getMinute())
+                    .concat("\t"+updateEndTime.getHour()).concat(":"+updateEndTime.getMinute())
+                    .concat("\t"+updateInviteFriend.getText().toString()).concat("\t"+ mRepeat+"\n");
+
+            FileOutputStream fileOutputStream = openFileOutput(FILE_NAME, MODE_APPEND);
+            fileOutputStream.write(fileContents.getBytes());
+            Log.v(TAG, "Writing...");
+            Toast.makeText(getBaseContext(),"Saved to file",Toast.LENGTH_SHORT).show();
+            fileOutputStream.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+ /*   @RequiresApi(api = Build.VERSION_CODES.M)
     private void insertPlan() {
 
         int day = datePicker.getDayOfMonth(); // get the selected day of the month
@@ -113,7 +150,7 @@ public class UpdateWorkoutDetails extends AppCompatActivity {
         int endTimeHour = updateEndTime.getHour();
         int endTimeMinute = updateEndTime.getMinute();
 
-        PlanDbHelper mDbHelper = new PlanDbHelper(this);
+        //PlanDbHelper mDbHelper = new PlanDbHelper(this);
 
         //SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
@@ -126,22 +163,22 @@ public class UpdateWorkoutDetails extends AppCompatActivity {
         values.put(PlanContract.PlanEntry.COLUMN_START_TIME_MINUTE, startTimeMinute);
         values.put(PlanContract.PlanEntry.COLUMN_END_TIME_HOUR, endTimeHour);
         values.put(PlanContract.PlanEntry.COLUMN_END_TIME_MINUTE, endTimeMinute);
-        values.put(PlanContract.PlanEntry.COLUMN_FRIEND, inviteFriend);
+        values.put(PlanContract.PlanEntry.COLUMN_FRIEND, updateInviteFriend.getText().toString());
         values.put(PlanContract.PlanEntry.COLUMN_REPEAT, mRepeat);
 
         //long newRowID = db.insert(PlanContract.PlanEntry.TABLE_NAME,null,values);
         Uri newUri = getContentResolver().insert(PlanContract.PlanEntry.CONTENT_URI, values);
 
- /**       if (newRowID == -1) {
-            Toast.makeText(this, "Error with saving", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Plan saved with row id:" + newRowID, Toast.LENGTH_SHORT).show();
-        }
-**/
+        /**       if (newRowID == -1) {
+         Toast.makeText(this, "Error with saving", Toast.LENGTH_SHORT).show();
+         } else {
+         Toast.makeText(this, "Plan saved with row id:" + newRowID, Toast.LENGTH_SHORT).show();
+         }
+
         if (newUri == null) {
             Toast.makeText(this, "Insertion failed",Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Insertion successful", Toast.LENGTH_SHORT).show();
         }
     }
-}
+**/
