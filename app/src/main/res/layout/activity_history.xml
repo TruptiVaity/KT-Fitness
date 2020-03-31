@@ -14,7 +14,8 @@
         android:textSize="30sp" />
 
     <TableLayout
-        android:id="@+id/table_layout"
+        android:id="@+id/history_table"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:stretchColumns="*" />
 </LinearLayout>
