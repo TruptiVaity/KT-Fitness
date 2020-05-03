@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="array_repeat_options">
+        <item>@string/repeat_unknown</item>
+        <item>@string/repeat_daily</item>
+        <item>@string/repeat_monthly</item>
+        <item>@string/repeat_weekly</item>
+        <item>@string/repeat_never</item>
+    </string-array>
+
+</resources>
