@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">KTFit</string>
+
+    <string name="repeat_daily">RepeatDaily</string>
+    <string name="repeat_weekly">RepeatWeekly</string>
+    <string name="repeat_monthly">RepeatMonthly</string>
+    <string name="repeat_never">RepeatNever</string>
+    <string name="repeat_unknown">Unknown</string>
+
 </resources>
+
+
