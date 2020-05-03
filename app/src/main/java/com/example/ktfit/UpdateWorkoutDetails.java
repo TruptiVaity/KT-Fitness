@@ -21,7 +21,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.ktfit.data.PlanContract;
+//import com.example.ktfit.data.PlanContract;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -48,12 +48,18 @@ public class UpdateWorkoutDetails extends AppCompatActivity {
         updateRepeatSpinner = (Spinner) findViewById(R.id.spinner_repeat);
         saveButton = findViewById(R.id.save_button);
 
+        int array[] = getIntent().getIntArrayExtra("date");
+        if(array !=null ){
+            datePicker.init(array[0], array[1], array[2], null);
+        }
+
         setupSpinner();
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
+                //TODO We need to save on click of this save button
                 savePlanInTextFile();
                 //insertPlan();
                 //finish();
@@ -108,12 +114,13 @@ public class UpdateWorkoutDetails extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void savePlanInTextFile() {
         try {
-
-            String fileContents = String.valueOf(datePicker.getMonth()).concat(":"+ datePicker.getDayOfMonth())
-                    .concat(":"+ datePicker.getYear())
-                    .concat("\t"+ updateStartTime.getHour()).concat(":"+updateStartTime.getMinute())
-                    .concat("\t"+updateEndTime.getHour()).concat(":"+updateEndTime.getMinute())
-                    .concat("\t"+updateInviteFriend.getText().toString()).concat("\t"+ mRepeat+"\n");
+            //TODO These are the contents to be saved
+            //TODO datePicker.getMonth()+1 + "/" + datePicker.getDayOfMonth()+ "/" + datePicker.getYear() gives us pur date of the selected day
+            //TODO start time and end time gives us the start and end time of the workout planned on that day
+            String fileContents = datePicker.getMonth()+1 + "/" + datePicker.getDayOfMonth()+ "/" + datePicker.getYear() +
+                    "\t"+ updateStartTime.getHour() + ":"+updateStartTime.getMinute() +
+                    "\t"+updateEndTime.getHour() + ":"+updateEndTime.getMinute() +
+                    "\t"+(updateInviteFriend.getText().toString()).concat("\t"+ mRepeat+"\n");
 
             FileOutputStream fileOutputStream = openFileOutput(FILE_NAME, MODE_APPEND);
             fileOutputStream.write(fileContents.getBytes());
