@@ -13,14 +13,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.alamkanak.weekview.MonthLoader;
-import com.alamkanak.weekview.WeekView;
-import com.alamkanak.weekview.WeekViewEvent;
 
 import java.util.Calendar;
 import java.util.List;
 
-public class PlannerActivity extends AppCompatActivity implements WeekView.EventClickListener {
+public class PlannerActivity extends AppCompatActivity{
     private String sessionID = null;
     private String Check_TAG = "SPINNER";
     @Override
@@ -55,8 +52,4 @@ public class PlannerActivity extends AppCompatActivity implements WeekView.Event
 
     }
 
-    @Override
-    public void onEventClick(WeekViewEvent event, RectF eventRect) {
-
-    }
 }
