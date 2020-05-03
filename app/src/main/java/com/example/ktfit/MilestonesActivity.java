@@ -11,6 +11,9 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.List;
 
 public class MilestonesActivity extends AppCompatActivity {
@@ -22,9 +25,22 @@ public class MilestonesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_milestones);
 
+        // Write a message to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference();
 
+        myRef.setValue("Hello, World!");
+        myRef.child("milestones").setValue("Start your first workout");
         //init();
     }
+
+
+
+
+
+
+
+
 
 //    public void init(){
 //        TableLayout ll = findViewById(R.id.milestones_table);

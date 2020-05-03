@@ -14,6 +14,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
     private SensorManager mSensorManager;
     private Sensor mStepCounter;
@@ -31,6 +34,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         stepCountView = findViewById(R.id.step_counting);
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String name = user.getDisplayName();
+
+        TextView nText = (TextView) findViewById(R.id.name);
+        nText.setText("Hi " + name + "!");
 
         TextView startWorkout = (TextView) findViewById(R.id.start_workout);
         startWorkout.setOnClickListener(new View.OnClickListener() {
@@ -44,8 +52,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         tracker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent startWorkoutIntent = new Intent(MainActivity.this, WaterCaffeineTrackerActivity.class);
-                startActivity(startWorkoutIntent);
+//                Intent startWorkoutIntent = new Intent(MainActivity.this, WaterCaffeineTrackerActivity.class);
+//                startActivity(startWorkoutIntent);
             }
         });
         TextView planner = (TextView) findViewById(R.id.workoutplanner);
