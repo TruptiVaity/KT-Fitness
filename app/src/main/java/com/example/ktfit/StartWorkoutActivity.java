@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.FileOutputStream;
 
-import static com.example.ktfit.MainActivity.getTimeStamp;
+//import static com.example.ktfit.MainActivity.getTimeStamp;
 
 public class StartWorkoutActivity extends AppCompatActivity {
 
@@ -219,12 +219,12 @@ public class StartWorkoutActivity extends AppCompatActivity {
     private void saveWorkoutTimeInTextFile() {
         try {
 
-            String fileContents = getTimeStamp().concat("\t" + WorkoutType + "\t" + Minutes + ":"
-                    + String.format("%02d", Seconds) + ":"
-                    + String.format("%03d", MilliSeconds) + "\n");
+//            String fileContents = getTimeStamp().concat("\t" + WorkoutType + "\t" + Minutes + ":"
+//                    + String.format("%02d", Seconds) + ":"
+//                    + String.format("%03d", MilliSeconds) + "\n");
 
             FileOutputStream fileOutputStream = openFileOutput(FILE_NAME, MODE_APPEND);
-            fileOutputStream.write(fileContents.getBytes());
+//            fileOutputStream.write(fileContents.getBytes());
             Toast.makeText(getBaseContext(),"Saved to file",Toast.LENGTH_SHORT).show();
             fileOutputStream.close();
 

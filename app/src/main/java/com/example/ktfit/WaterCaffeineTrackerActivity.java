@@ -21,7 +21,7 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static com.example.ktfit.MainActivity.getTimeStamp;
+//import static com.example.ktfit.MainActivity.getTimeStamp;
 
 public class WaterCaffeineTrackerActivity extends AppCompatActivity {
     private static final String FILE_NAME = "tracker.txt";
@@ -228,10 +228,10 @@ public class WaterCaffeineTrackerActivity extends AppCompatActivity {
     private void saveInTextFile() {
         try {
 
-            String fileContents = getTimeStamp().concat("\n");
+//            String fileContents = getTimeStamp().concat("\n");
 
             FileOutputStream fileOutputStream = openFileOutput(FILE_NAME, MODE_APPEND);
-            fileOutputStream.write(fileContents.getBytes());
+//            fileOutputStream.write(fileContents.getBytes());
             Toast.makeText(getBaseContext(),"Saved to file",Toast.LENGTH_SHORT).show();
             fileOutputStream.close();
 

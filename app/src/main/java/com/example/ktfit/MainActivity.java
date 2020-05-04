@@ -38,7 +38,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         String name = user.getDisplayName();
 
         TextView nText = (TextView) findViewById(R.id.name);
-        nText.setText("Hi " + name + "!");
+        if (name != null)
+            nText.setText("Hi " + name + "!");
 
         TextView startWorkout = (TextView) findViewById(R.id.start_workout);
         startWorkout.setOnClickListener(new View.OnClickListener() {

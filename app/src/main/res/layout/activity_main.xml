@@ -24,73 +24,96 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="100dp"
         android:gravity="center_horizontal"
-        android:text="Welcome to your first step towards Fitness"
+        android:text="Welcome to your first step towards fitness"
         android:textSize="20dp" />
 
     <TextView
         android:id="@+id/history"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
         android:layout_below="@id/workoutplanner"
-        android:layout_marginLeft="100dp"
+        android:layout_marginLeft="80dp"
         android:layout_marginTop="20dp"
         android:background="@color/colorPrimary"
-        android:text="Workout History" />
+        android:gravity="center"
+        android:text="Workout History"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/start_workout"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
-        android:layout_marginLeft="100dp"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:layout_marginLeft="80dp"
         android:layout_marginTop="200dp"
         android:background="@color/colorPrimary"
-        android:text="Start WorkOut"
+        android:gravity="center"
+        android:text="Start Workout"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@id/water_caffeine_tracker" />
 
     <TextView
         android:id="@+id/water_caffeine_tracker"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="200dp"
         android:layout_toRightOf="@id/start_workout"
         android:background="@color/colorPrimary"
-        android:text="Water/Caffeine Tracker" />
+        android:gravity="center"
+        android:text="Water/Caffeine Tracker"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/workoutplanner"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
         android:layout_below="@id/start_workout"
-        android:layout_marginLeft="100dp"
+        android:layout_marginLeft="80dp"
         android:layout_marginTop="21dp"
         android:background="@color/colorPrimary"
+        android:gravity="center"
+
+
         android:text="Workout Planner"
-
-
-        />
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/milestones"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
         android:layout_below="@id/water_caffeine_tracker"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="21dp"
         android:layout_toRightOf="@id/workoutplanner"
         android:background="@color/colorPrimary"
-        android:text="Milestones" />
+        android:gravity="center"
+        android:text="Milestones"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/friends"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
         android:layout_below="@id/milestones"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="20dp"
         android:layout_toRightOf="@id/history"
         android:background="@color/colorPrimary"
-        android:text="Friends" />
+        android:gravity="center"
+        android:text="Friends"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/step_counting"

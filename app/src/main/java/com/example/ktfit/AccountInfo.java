@@ -16,6 +16,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
+//https://stackoverflow.com/questions/30910704/how-do-i-link-each-user-to-their-data-in-firebase
+
 public class AccountInfo extends AppCompatActivity implements View.OnClickListener{
 
     private FirebaseAuth mAuth;
