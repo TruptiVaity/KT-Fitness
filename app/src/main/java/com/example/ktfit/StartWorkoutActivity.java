@@ -1,78 +1,73 @@
 package com.example.ktfit;
 
-import android.app.AlarmManager;
-import android.content.Context;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Date;
-import java.util.List;
-import java.util.logging.Logger;
+import java.io.FileOutputStream;
 
-public class StartWorkoutActivity extends AppCompatActivity{
-    TextView walkView,runView,cycleView,otherView,timeView, stepCountView;
-    long MillisecondTime, StartTime, TimeBuff, UpdateTime = 0L ;
-    private final static int SAVE_OFFSET_STEPS = 500;
-    public final static int NOTIFICATION_ID = 1;
-    private final static long MICROSECONDS_IN_ONE_MINUTE = 60000000;
-    private final static long SAVE_OFFSET_TIME = AlarmManager.INTERVAL_HOUR;
-    private static long lastSaveTime;
+import static com.example.ktfit.MainActivity.getTimeStamp;
+
+public class StartWorkoutActivity extends AppCompatActivity {
+
+    private static final String FILE_NAME = "workout_time_logger.txt";
+    TextView walkView,runView,cycleView,otherView,timeView;
+    public long MillisecondTime, StartTime, TimeBuff, UpdateTime = 0L ;
     Button start, pause, reset, lap ;
     Handler handler;
-    int Seconds, Minutes, MilliSeconds ;
-
+    String WorkoutType;
+    public int Seconds, Minutes, MilliSeconds ;
+    public boolean mTimerRunning = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_startworkout);
 
-
         handler = new Handler() ;
-        walkView = findViewById(R.id.walk);
-        runView = findViewById(R.id.run);
-        cycleView = findViewById(R.id.cycle);
-        otherView = findViewById(R.id.other);
-        timeView = findViewById(R.id.input_time);
-        start = findViewById(R.id.startbutton);
-        pause = findViewById(R.id.pausebutton);
-        reset = findViewById(R.id.resetbutton);
-        lap = findViewById(R.id.lapbutton);
+
+        walkView = (TextView) findViewById(R.id.walk);
+        runView = (TextView) findViewById(R.id.run);
+        cycleView = (TextView) findViewById(R.id.cycle);
+        otherView = (TextView) findViewById(R.id.other);
+        timeView = (TextView) findViewById(R.id.input_time);
+
+        start = (Button)findViewById(R.id.startbutton);
+        pause = (Button)findViewById(R.id.pausebutton);
+        reset = (Button)findViewById(R.id.resetbutton);
+        lap = (Button)findViewById(R.id.lapbutton) ;
 
         start.setEnabled(false);
         pause.setEnabled(false);
-        //reset.setEnabled(false);
+        reset.setEnabled(false);
         lap.setEnabled(false);
-
 
         walkView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                WorkoutType = "Walk";
                 start.setEnabled(true);
                 pause.setEnabled(true);
                 lap.setEnabled(true);
                 runView.setEnabled(false);
                 cycleView.setEnabled(false);
                 otherView.setEnabled(false);
-
             }
         });
         runView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                WorkoutType = "Run";
                 start.setEnabled(true);
                 pause.setEnabled(true);
                 lap.setEnabled(true);
@@ -85,34 +80,33 @@ public class StartWorkoutActivity extends AppCompatActivity{
         cycleView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                WorkoutType = "Cycle";
                 start.setEnabled(true);
                 pause.setEnabled(true);
                 lap.setEnabled(true);
-                walkView.setEnabled(false);
                 runView.setEnabled(false);
+                walkView.setEnabled(false);
                 otherView.setEnabled(false);
-
 
             }
         });
         otherView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                WorkoutType = "Other";
                 start.setEnabled(true);
                 pause.setEnabled(true);
                 lap.setEnabled(true);
-                walkView.setEnabled(false);
-                cycleView.setEnabled(false);
                 runView.setEnabled(false);
-
+                cycleView.setEnabled(false);
+                walkView.setEnabled(false);
 
             }
         });
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //numSteps = 0;
-                //mSensorManager.registerListener(StartWorkoutActivity.this, mStepCounter, SensorManager.SENSOR_DELAY_FASTEST);
+                mTimerRunning = true;
                 StartTime = SystemClock.uptimeMillis();
                 handler.postDelayed(runnable, 0);
                 reset.setEnabled(false);
@@ -120,18 +114,23 @@ public class StartWorkoutActivity extends AppCompatActivity{
         });
 
         pause.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
+                mTimerRunning = false;
                 TimeBuff += MillisecondTime;
-                //mSensorManager.unregisterListener(StartWorkoutActivity.this);
+                saveWorkoutTimeInTextFile();
                 handler.removeCallbacks(runnable);
                 reset.setEnabled(true);
             }
         });
 
         reset.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
+                mTimerRunning = false;
+                saveWorkoutTimeInTextFile();
                 MillisecondTime = 0L ;
                 StartTime = 0L ;
                 TimeBuff = 0L ;
@@ -146,35 +145,104 @@ public class StartWorkoutActivity extends AppCompatActivity{
                 timeView.setText("00:00:00");
             }
         });
+        lap.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onClick(View v) {
+                mTimerRunning = true;
+                saveWorkoutTimeInTextFile();
+            }
+        });
 
     }
 
+//TODO To save the time in when start is clicked and stop it only if the app is destroyed or else stopped manually
+    //TODO Run the timer in the background
 
     public Runnable runnable = new Runnable() {
 
         public void run() {
-
             MillisecondTime = SystemClock.uptimeMillis() - StartTime;
-
             UpdateTime = TimeBuff + MillisecondTime;
-
             Seconds = (int) (UpdateTime / 1000);
-
             Minutes = Seconds / 60;
-
             Seconds = Seconds % 60;
-
             MilliSeconds = (int) (UpdateTime % 1000);
-
             timeView.setText("" + Minutes + ":"
                     + String.format("%02d", Seconds) + ":"
                     + String.format("%03d", MilliSeconds));
-
             handler.postDelayed(this, 0);
         }
 
     };
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putLong("millisLeft", UpdateTime);
+        editor.putBoolean("timerRunning", mTimerRunning);
+        editor.apply();
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+        mTimerRunning = prefs.getBoolean("timerRunning", false);
+        if (mTimerRunning) {
+            MillisecondTime = prefs.getLong("millisCovered", MillisecondTime);
+        }
+    }
+/**    @Override
+    protected void  onResume(){
+        super.onResume();
+        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putLong("millisLeft", UpdateTime);
+        editor.putBoolean("timerRunning", mTimerRunning);
+        editor.apply();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+        mTimerRunning = prefs.getBoolean("timerRunning", false);
+        if (mTimerRunning) {
+            MillisecondTime = prefs.getLong("millisCovered", MillisecondTime);
+        }
+    }
+**/
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void saveWorkoutTimeInTextFile() {
+        try {
+
+            String fileContents = getTimeStamp().concat("\t" + WorkoutType + "\t" + Minutes + ":"
+                    + String.format("%02d", Seconds) + ":"
+                    + String.format("%03d", MilliSeconds) + "\n");
+
+            FileOutputStream fileOutputStream = openFileOutput(FILE_NAME, MODE_APPEND);
+            fileOutputStream.write(fileContents.getBytes());
+            Toast.makeText(getBaseContext(),"Saved to file",Toast.LENGTH_SHORT).show();
+            fileOutputStream.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+/**
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+        mTimerRunning = prefs.getBoolean("timerRunning", false);
+        if (mTimerRunning) {
+            MillisecondTime = prefs.getLong("millisCovered", MillisecondTime);
+        }
+    }
+    **/
 }
+
 
