@@ -1,5 +1,7 @@
 package com.example.ktfit;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.media.Image;
 import android.nfc.Tag;
 import android.os.Bundle;
@@ -13,6 +15,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -103,28 +107,25 @@ public class MilestonesActivity extends AppCompatActivity {
     public void updateTables(){
         TableLayout ll = findViewById(R.id.completed);
 
-        TableRow row = new TableRow(this);
-        TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
-        row.setLayoutParams(lp);
 
-//        milestones.
 
-        for (int i = 0; i <1; i++) { //loop through milestones
+
+        for (int i = 0; i <milestonesList.size(); i++) { //loop through milestones
+
+            TableRow row = new TableRow(this);
+            TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
+            row.setLayoutParams(lp);
 
             TextView ms = new TextView(this);
             ImageView image = new ImageView(this);
 
             ms.setGravity(Gravity.CENTER);
             ms.setPadding(15, 10, 15, 10);
-//            ms.setText("300 km");
             ms.setText(milestonesList.get(i).mile);
             ms.setTextSize(20);
 
-
-
-//            image.setPadding(15, 10, 15, 10);
-//            image.setLayoutParams(layp);
             image.setImageResource(R.drawable.check);
+            image.setColorFilter(image.getContext().getResources().getColor(R.color.green), PorterDuff.Mode.SRC_ATOP);
 
             row.addView(image);
             row.addView(ms);
