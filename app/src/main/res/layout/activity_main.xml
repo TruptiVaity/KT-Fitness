@@ -83,12 +83,43 @@
         android:text="Friends" />
 
     <TextView
-        android:id="@+id/step_counting"
-        android:layout_width="match_parent"
+        android:id="@+id/active_minutes"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="30dp"
         android:textAlignment="center"
+        android:text="Active Minutes : "
         android:layout_below="@id/friends"/>
+    <TextView
+        android:id="@+id/display_active_minutes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:textAlignment="center"
+        android:hint="View active minutes"
+        android:layout_toRightOf="@id/active_minutes"
+        android:layout_below="@id/friends"/>
+
+    <TextView
+        android:id="@+id/daily_step_count"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="30dp"
+        android:textAlignment="center"
+        android:layout_marginLeft="100dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/active_minutes"
+        android:text="Steps covered today : " />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:textAlignment="center"
+        android:id="@+id/view_daily_steps"
+        android:hint="View daily steps"
+        android:layout_toRightOf="@id/daily_step_count"
+        android:layout_below="@id/active_minutes"/>
+
+
 </RelativeLayout>
