@@ -14,7 +14,14 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.FileOutputStream;
+import java.util.Calendar;
+import java.util.Date;
 
 //import static com.example.ktfit.MainActivity.getTimeStamp;
 
@@ -130,6 +137,7 @@ public class StartWorkoutActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mTimerRunning = false;
+                saveToDB();
                 saveWorkoutTimeInTextFile();
                 MillisecondTime = 0L ;
                 StartTime = 0L ;
@@ -184,6 +192,27 @@ public class StartWorkoutActivity extends AppCompatActivity {
         editor.putLong("millisLeft", UpdateTime);
         editor.putBoolean("timerRunning", mTimerRunning);
         editor.apply();
+    }
+
+    public void saveToDB()
+    {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+
+        // Write a message to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference();
+
+        DatabaseReference workoutRef = myRef.child("my_app_user").child(uid).child("workouts");
+
+        Date currentTime = Calendar.getInstance().getTime();
+        String duration = Minutes + ":" + String.format("%02d", Seconds) + ":" + String.format("%03d", MilliSeconds);
+
+
+        workoutRef.child(currentTime.toString()).child("WorkoutType").setValue(WorkoutType.toString());
+        workoutRef.child(currentTime.toString()).child("Duration").setValue(duration);
+//        workoutRef.child(currentTime.toString()).child("Speed").setValue(WorkoutType.toString());
+//        workoutRef.child(currentTime.toString()).child("Calories").setValue(WorkoutType.toString());
     }
 
     @Override

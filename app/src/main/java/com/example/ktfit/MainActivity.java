@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         String name = user.getDisplayName();
 
         TextView nText = (TextView) findViewById(R.id.name);
-        nText.setText("Hi " + name + "!");
         if (name != null)
             nText.setText("Hi " + name + "!");
 
@@ -94,6 +93,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     protected void onResume(){
         super.onResume();
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String name = user.getDisplayName();
+
+        TextView nText = (TextView) findViewById(R.id.name);
+        if (name != null)
+            nText.setText("Hi " + name + "!");
+
         isSensorRunning = true;
         if(mStepCounter != null){
             mSensorManager.registerListener(this, mStepCounter, SensorManager.SENSOR_DELAY_NORMAL);
