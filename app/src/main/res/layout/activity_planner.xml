@@ -9,11 +9,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
-        android:textSize="20dp"
         android:text="Select the Date and enter workout plan"
         android:textColor="@android:color/background_dark"
+        android:textSize="20dp"
         android:textStyle="bold" />
 
     <CalendarView
@@ -23,16 +23,62 @@
         android:layout_alignEnd="@id/planner_add_button"
         android:layout_alignRight="@id/planner_add_button"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="150dp"
-        android:foregroundGravity="center_vertical"
+        android:layout_marginTop="60dp"
         android:contextClickable="true"
-        android:layout_marginBottom="50dp" />
+        android:foregroundGravity="center_vertical" />
+
     <Button
         android:id="@+id/planner_add_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="+"
-        android:textSize="35dp"
+        android:layout_below="@id/calendar"
         android:layout_marginLeft="300dp"
-        android:layout_below="@id/calendar"/>
+        android:text="+"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/calendar"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:text="Upcoming Events"
+        android:textSize="24sp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/planner_add_button"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TableLayout
+                android:id="@+id/events"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
+
 </RelativeLayout>

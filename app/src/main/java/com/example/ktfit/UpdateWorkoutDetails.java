@@ -22,9 +22,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 //import com.example.ktfit.data.PlanContract;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Calendar;
+import java.util.Date;
 
 public class UpdateWorkoutDetails extends AppCompatActivity {
     private DatePicker datePicker;
@@ -61,6 +67,7 @@ public class UpdateWorkoutDetails extends AppCompatActivity {
             public void onClick(View v) {
                 //TODO We need to save on click of this save button
                 savePlanInTextFile();
+                saveToDB();
 
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(Calendar.HOUR_OF_DAY,23);
@@ -129,6 +136,31 @@ public class UpdateWorkoutDetails extends AppCompatActivity {
                 mRepeat = getString(R.string.repeat_unknown); // Unknown
             }
         });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void saveToDB()
+    {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+
+        // Write a message to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference();
+
+        DatabaseReference eventsRef = myRef.child("my_app_user").child(uid).child("events");
+
+        String date = datePicker.getMonth()+1 + "/" + datePicker.getDayOfMonth()+ "/" + datePicker.getYear() +
+                " "+ updateStartTime.getHour() + ":"+updateStartTime.getMinute() +
+                " - " +updateEndTime.getHour() + ":"+updateEndTime.getMinute();
+
+        Date currentTime = Calendar.getInstance().getTime();
+
+        eventsRef.child(currentTime.toString()).child("date").setValue(date);
+        eventsRef.child(currentTime.toString()).child("friend").setValue(updateInviteFriend.getText().toString());
+        eventsRef.child(currentTime.toString()).child("repeat").setValue(mRepeat);
+//        workoutRef.child(currentTime.toString()).child("Speed").setValue(WorkoutType.toString());
+//        workoutRef.child(currentTime.toString()).child("Calories").setValue(WorkoutType.toString());
     }
 
 
