@@ -1,8 +1,10 @@
 package com.example.ktfit;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,6 +32,7 @@ public class AccountInfo extends AppCompatActivity implements View.OnClickListen
 
     private FirebaseAuth mAuth;
     private static final String TAG = AccountInfo.class.getSimpleName();
+
     private String email;
 
     @Override
@@ -117,9 +120,32 @@ public class AccountInfo extends AppCompatActivity implements View.OnClickListen
         startActivity(startMainIntent);
     }
 
+    private boolean validateForm(String fName, String lName, String dob, String height, String weight) {
+        boolean valid = true;
+
+        if (fName.equals("") || lName.equals("") || dob.equals("") || height.equals("") || weight.equals("")) {
+            valid = false;
+
+            new AlertDialog.Builder(AccountInfo.this)
+                    .setTitle("Field Required")
+                    .setMessage("Please enter all account information.")
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    })
+
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        }
+
+        return valid;
+    }
+
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.save) {
+
             TextView fname = findViewById(R.id.fName);
             TextView lname = findViewById(R.id.lName);
             TextView dob = findViewById(R.id.dob);
@@ -131,6 +157,10 @@ public class AccountInfo extends AppCompatActivity implements View.OnClickListen
             String d = dob.getText().toString();
             String h = height.getText().toString();
             String w = weight.getText().toString();
+
+            if (!validateForm(f, l, d, h, w)) {
+                return;
+            }
 
             updateInfo(f, l, d, h, w);
 
