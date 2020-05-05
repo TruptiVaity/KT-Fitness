@@ -11,7 +11,10 @@
         android:layout_marginLeft="30dp"
         android:layout_marginTop="100dp"
         android:gravity="center"
+<<<<<<< HEAD
         android:textSize="20dp"
+=======
+>>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
         android:text="Select the Date and enter workout plan"
         android:textColor="@android:color/background_dark"
         android:textStyle="bold" />
@@ -23,16 +26,26 @@
         android:layout_alignEnd="@id/planner_add_button"
         android:layout_alignRight="@id/planner_add_button"
         android:layout_alignParentTop="true"
+<<<<<<< HEAD
         android:layout_marginTop="150dp"
         android:foregroundGravity="center_vertical"
         android:contextClickable="true"
+=======
+        android:layout_marginTop="200dp"
+>>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
         android:layout_marginBottom="50dp" />
     <Button
         android:id="@+id/planner_add_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="+"
+<<<<<<< HEAD
         android:textSize="35dp"
         android:layout_marginLeft="300dp"
         android:layout_below="@id/calendar"/>
+=======
+        android:textSize="25dp"
+        android:layout_marginLeft="300dp"
+        android:layout_marginTop="650dp"/>
+>>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
 </RelativeLayout>

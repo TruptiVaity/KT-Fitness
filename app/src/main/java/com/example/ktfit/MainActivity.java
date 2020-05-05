@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+<<<<<<< HEAD
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.app.PendingIntent;
@@ -11,6 +12,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+=======
+
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+>>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
 import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -18,6 +25,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
+<<<<<<< HEAD
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -41,6 +49,27 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+=======
+import android.os.Handler;
+import android.provider.SyncStateContract;
+import android.text.format.Time;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.ActivityRecognition;
+
+import java.io.FileOutputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
+import static android.provider.Settings.Secure.getLong;
+>>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
 import static java.lang.String.*;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener,
@@ -54,25 +83,37 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private static int InitialSensorValue, TotalnumSteps = 0, StepsPerDay = 0;
     Calendar c;
     int dayat, nextday, activityNumber;
+<<<<<<< HEAD
     public long MillisecondTime, StartTime, TimeBuff, UpdateTime = 0L ;
     public int Seconds, Minutes, MilliSeconds ;
     public static final String TAG = "Activity Recognized ";
+=======
+>>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
     String daystr, nextdaystr;
     private static final String FILE_NAME = "stepcount.txt";
     public String activityDetected;
     private static final String TEXT_NUM_STEPS_PER_DAY = "Number of Steps today: ";
     TextView viewDailySteps;
+<<<<<<< HEAD
     Handler mHandler;
 
     BroadcastReceiver broadcastReceiver;
     public static final String BROADCAST_DETECTED_ACTIVITY = "activity_intent";
     static final long DETECTION_INTERVAL_IN_MILLISECONDS = 30 * 1000;
     public static final int CONFIDENCE = 70;
+=======
+
+
+>>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mApiClient = new GoogleApiClient.Builder(MainActivity.this)
@@ -82,6 +123,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 .build();
         mApiClient.connect();
 
+<<<<<<< HEAD
         mHandler = new Handler();
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mStepCounter = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
@@ -155,6 +197,68 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 }
             });
         }
+=======
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mStepCounter = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+
+        viewDailySteps = findViewById(R.id.view_daily_steps);
+        //activityNumber = getIntent().getIntExtra("activityDetected",activityNumber);
+
+        //displayActiveMinutes = findViewById(R.id.display_active_minutes);
+        //displayActiveMinutes.setText(activityNumber);
+        //Toast.makeText(getBaseContext(),String.valueOf(activityNumber),Toast.LENGTH_SHORT).show();
+
+        TextView startWorkout = (TextView) findViewById(R.id.start_workout);
+        startWorkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent startWorkoutIntent = new Intent(MainActivity.this, StartWorkoutActivity.class);
+                startActivity(startWorkoutIntent);
+            }
+        });
+        TextView tracker = (TextView) findViewById(R.id.water_caffeine_tracker);
+        tracker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent startWorkoutIntent = new Intent(MainActivity.this, WaterCaffeineTrackerActivity.class);
+                startActivity(startWorkoutIntent);
+            }
+        });
+        TextView planner = (TextView) findViewById(R.id.workoutplanner);
+        planner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent startWorkoutIntent = new Intent(MainActivity.this, PlannerActivity.class);
+                startActivity(startWorkoutIntent);
+            }
+        });
+        TextView milestones = (TextView) findViewById(R.id.milestones);
+        milestones.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent startWorkoutIntent = new Intent(MainActivity.this, MilestonesActivity.class);
+                startActivity(startWorkoutIntent);
+            }
+        });
+        TextView history = (TextView) findViewById(R.id.history);
+        history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent startWorkoutIntent = new Intent(MainActivity.this, HistoryActivity.class);
+                startActivity(startWorkoutIntent);
+            }
+        });
+        TextView friends = (TextView) findViewById(R.id.friends);
+        friends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent startWorkoutIntent = new Intent(MainActivity.this, FriendsActivity.class);
+                startActivity(startWorkoutIntent);
+            }
+        });
+    }
+
+>>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
     @Override
     protected void onResume() {
         super.onResume();
@@ -164,15 +268,23 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         } else {
             Toast.makeText(this, "Sensor not found", Toast.LENGTH_SHORT).show();
         }
+<<<<<<< HEAD
         LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, new IntentFilter(BROADCAST_DETECTED_ACTIVITY));
+=======
+>>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onPause() {
         super.onPause();
+<<<<<<< HEAD
         isSensorRunning = false;
         LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
+=======
+
+        isSensorRunning = false;
+>>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
     }
 
     @Override
@@ -252,6 +364,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             e.printStackTrace();
         }
     }
+<<<<<<< HEAD
     private void handleUserActivity(int type,int confidence){
         if (type != DetectedActivity.STILL){
             Toast.makeText(getApplicationContext(), "active", Toast.LENGTH_SHORT).show();
@@ -274,6 +387,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         stopService(intent);
 
     }
+=======
+
+>>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
     public static String getTimeStamp() {
         Time currentTime = new Time();
         currentTime.setToNow();
@@ -281,6 +397,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         return sTime;
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
     public void updateStepsForNewDay() {
 
         c = Calendar.getInstance();
@@ -302,10 +422,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
+<<<<<<< HEAD
      //   Intent intent = new Intent(MainActivity.this,RecognizeActivityService.class);
        // PendingIntent pendingIntent = PendingIntent.getService(MainActivity.this,0,intent,
         //        PendingIntent.FLAG_UPDATE_CURRENT);
         //ActivityRecognition.ActivityRecognitionApi.requestActivityUpdates(mApiClient,3000,pendingIntent);
+=======
+        Intent intent = new Intent(MainActivity.this,RecognizeActivityService.class);
+        PendingIntent pendingIntent = PendingIntent.getService(MainActivity.this,0,intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        ActivityRecognition.ActivityRecognitionApi.requestActivityUpdates(mApiClient,3000,pendingIntent);
+>>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
 
     }
 
@@ -318,6 +445,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+<<<<<<< HEAD
 
     public Runnable runnable = new Runnable() {
 
@@ -333,6 +461,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
 
     };
+=======
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+        isSensorRunning = prefs.getBoolean("isSensorRunning", false);
+        if (isSensorRunning) {
+            StepsPerDay = prefs.getInt("steps", StepsPerDay);
+        }
+    }
+>>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
 
 }
 

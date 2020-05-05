@@ -7,6 +7,7 @@
     <string name="repeat_never">RepeatNever</string>
     <string name="repeat_unknown">Unknown</string>
 
+<<<<<<< HEAD
     <string name="activity_unknown">UNKNOWN</string>
     <string name="activity_in_vehicle">IN VEHICLE</string>
     <string name="activity_on_bicycle">ON BICYCLE</string>
@@ -21,6 +22,8 @@
     <string name="workout_type">WorkoutType</string>
 
     <string name="reminder_string">Update the Intakes for today</string>
+=======
+>>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
 </resources>
 
 

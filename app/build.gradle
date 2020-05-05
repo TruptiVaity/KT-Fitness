@@ -1,21 +1,36 @@
 apply plugin: 'com.android.application'
+<<<<<<< HEAD
 apply plugin: 'com.google.gms.google-services'
+=======
+
+>>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.example.ktfit"
         minSdkVersion 15
+<<<<<<< HEAD
         multiDexEnabled true
+=======
+>>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+<<<<<<< HEAD
 
+=======
+        multiDexEnabled true
+>>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
     }
     buildTypes {
         release {
             minifyEnabled false
+<<<<<<< HEAD
+=======
+            multiDexEnabled true
+>>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -29,10 +44,16 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+<<<<<<< HEAD
     implementation 'com.google.firebase:firebase-database:16.0.4'
     implementation 'com.google.firebase:firebase-auth:16.0.5'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
     implementation 'com.android.support:multidex:1.0.3'
+=======
+    implementation 'com.google.android.gms:play-services:11.+'
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+>>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
 
 }
