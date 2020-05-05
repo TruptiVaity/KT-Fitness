@@ -1,3 +1,27 @@
 <resources>
     <string name="app_name">KTFit</string>
+
+    <string name="repeat_daily">RepeatDaily</string>
+    <string name="repeat_weekly">RepeatWeekly</string>
+    <string name="repeat_monthly">RepeatMonthly</string>
+    <string name="repeat_never">RepeatNever</string>
+    <string name="repeat_unknown">Unknown</string>
+
+
+    <string name="activity_unknown">UNKNOWN</string>
+    <string name="activity_in_vehicle">IN VEHICLE</string>
+    <string name="activity_on_bicycle">ON BICYCLE</string>
+    <string name="activity_on_foot">ON FOOT</string>
+    <string name="activity_running">RUNNING</string>
+    <string name="activity_still">STILL</string>
+    <string name="activity_walking">WALKING</string>
+    <string name="activity_tilting">TILTING</string>
+
+    <string name="channel_name">Workout Session</string>
+    <string name="channel_description">Time Elapsed</string>
+    <string name="workout_type">WorkoutType</string>
+
+    <string name="reminder_string">Update the Intakes for today</string>
 </resources>
+
+

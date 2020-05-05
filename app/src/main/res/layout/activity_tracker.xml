@@ -1,59 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tracker"
+    android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
 
+    <RelativeLayout
+        android:id="@+id/waterLayout"
+        android:gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/record_water_intake_button"
+            android:layout_width="160dp"
+            android:layout_height="60dp"
+            android:background="@color/colorPrimary"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="50dp"
+            android:text="Record Water Intake"
+            app:layout_constraintLeft_toLeftOf="@id/display_water_intake" />
 
-    <TextView
-        android:id="@+id/water"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
-        android:background="@color/colorPrimary"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="200dp"
-        android:text="Water"
-        app:layout_constraintLeft_toLeftOf="@id/coffee" />
+        <TextView
+            android:id="@+id/display_water_intake"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:textSize="25dp"
+            android:background="@color/colorPrimary"
+            android:layout_toRightOf="@id/record_water_intake_button"
+            android:hint="(mls)" />
 
-    <TextView
-        android:id="@+id/coffee"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="200dp"
-        android:background="@color/colorPrimary"
-        android:layout_toRightOf="@id/water"
-        android:text="Coffee" />
+        <Button
+            android:id="@+id/set_water_limit_button"
+            android:layout_width="160dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorPrimary"
+            android:layout_below="@id/record_water_intake_button"
+            android:text="SET WATER LIMIT"/>
 
-    <TextView
-        android:id="@+id/updatewater"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="20dp"
-        android:background="@color/colorPrimary"
-        android:layout_below="@id/water"
-        android:text="Update Water Goal"
+        <TextView
+            android:id="@+id/display_water_limit"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:layout_below="@id/display_water_intake"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:textSize="25dp"
+            android:background="@color/colorPrimary"
+            android:layout_toRightOf="@id/set_water_limit_button"
+            android:hint="(mls)" />
 
+    </RelativeLayout>
 
-        />
+    <RelativeLayout
+        android:id="@+id/coffeelayout"
+        android:layout_below="@+id/waterLayout"
+        android:layout_marginTop="150dp"
+        android:gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/record_coffee_intake_button"
+            android:layout_width="160dp"
+            android:layout_height="60dp"
+            android:background="@color/colorPrimary"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="50dp"
+            android:text="Record Coffee Intake"
+            app:layout_constraintLeft_toLeftOf="@id/display_coffee_intake" />
 
-    <TextView
-        android:id="@+id/updatecoffee"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
-        android:layout_below="@id/coffee"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="20dp"
-        android:background="@color/colorPrimary"
-        android:layout_toRightOf="@id/updatewater"
-        android:text="Update Coffee Goal" />
+        <TextView
+            android:id="@+id/display_coffee_intake"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:textSize="25dp"
+            android:background="@color/colorPrimary"
+            android:layout_toRightOf="@id/record_coffee_intake_button"
+            android:hint="(mls)" />
 
+        <Button
+            android:id="@+id/set_coffee_limit_button"
+            android:layout_width="160dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorPrimary"
+            android:layout_below="@id/record_coffee_intake_button"
+            android:text="SET COFFEE LIMIT"/>
+
+        <TextView
+            android:id="@+id/display_coffee_limit"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:layout_below="@id/display_coffee_intake"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:textSize="25dp"
+            android:background="@color/colorPrimary"
+            android:layout_toRightOf="@id/set_coffee_limit_button"
+            android:hint="(mls)" />
+
+    </RelativeLayout>
 
 
 </RelativeLayout>

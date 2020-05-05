@@ -10,43 +10,32 @@
 
     <TextView
         android:id="@+id/time"
-        android:layout_width="80dp"
-        android:layout_height="30dp"
+        android:layout_width="95dp"
+        android:layout_height="50dp"
         android:layout_marginLeft="100dp"
         android:layout_marginTop="100dp"
+        android:textSize="30dp"
         android:text="Time:"
-         />
-    <TextView
-        android:id="@+id/pace"
-        android:layout_width="80dp"
-        android:layout_height="30dp"
-        android:layout_marginLeft="100dp"
-        android:text="Pace:"
-        android:layout_below="@id/time"
         />
+
     <TextView
         android:id="@+id/input_time"
-        android:layout_width="80dp"
-        android:layout_height="30dp"
+        android:layout_width="105dp"
+        android:layout_height="50dp"
         android:layout_marginTop="100dp"
         android:layout_toRightOf="@id/time"
-        android:hint="00:00:00"
-        />
-    <TextView
-        android:id="@+id/input_pace"
-        android:layout_width="80dp"
-        android:layout_height="30dp"
-        android:layout_below="@id/input_time"
-        android:layout_toRightOf="@id/pace"
-        android:hint="pace"
-        />
+        android:textSize="25dp"
+        android:hint="00:00:00" />
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="60dp"
         android:gravity="center_horizontal"
-        android:textSize="20dp"
-        android:text="Current Workout Session"/>
+        android:text="Current Workout Session"
+        android:textSize="20dp" />
     <TextView
         android:id="@+id/walk"
         android:layout_width="80dp"
