@@ -62,6 +62,7 @@ public class MilestonesActivity extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         uid = user.getUid();
 
+        updateMilestones();
         getMilestones();
     }
 
@@ -93,6 +94,41 @@ public class MilestonesActivity extends AppCompatActivity {
     public void updateMilestones()
     {
 
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference();
+
+        DatabaseReference friendRef = myRef.child("my_app_user").child(uid).child("workouts");
+        final DatabaseReference milestonesRef = myRef.child("my_app_user").child(uid).child("milestones");
+
+        friendRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChildren())
+                {
+                    for (DataSnapshot hisSnapshot: dataSnapshot.getChildren()) {
+                        String h = hisSnapshot.child("WorkoutType").getValue().toString();
+
+                        if (h.equals("Run"))
+                        {
+                            milestonesRef.child("Start your first Run").setValue(1);
+                        }
+                        if (h.equals("Walk"))
+                        {
+                            milestonesRef.child("Start your first Walk").setValue(1);
+                        }
+                        if (h.equals("Cycle"))
+                        {
+                            milestonesRef.child("Start your first Cycle").setValue(1);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                throw databaseError.toException();
+            }
+        });
     }
 
     public void updateTables(){

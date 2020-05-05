@@ -90,6 +90,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String name = user.getDisplayName();
 
+        TextView nText = (TextView) findViewById(R.id.name);
+        if (name != null)
+            nText.setText("Hi " + name + "!");
+
         viewDailySteps = findViewById(R.id.view_daily_steps);
         displayActiveMinutes = findViewById(R.id.display_active_minutes);
 
@@ -158,6 +162,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     protected void onResume() {
         super.onResume();
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String name = user.getDisplayName();
+
+        TextView nText = (TextView) findViewById(R.id.name);
+        if (name != null)
+            nText.setText("Hi " + name + "!");
+
         isSensorRunning = true;
         if (mStepCounter != null) {
             mSensorManager.registerListener(this, mStepCounter, SensorManager.SENSOR_DELAY_NORMAL);
