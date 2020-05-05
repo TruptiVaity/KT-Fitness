@@ -75,6 +75,7 @@ public class AccountInfo extends AppCompatActivity implements View.OnClickListen
 
     public void updateInfo(String fName, String lName, String dob, String height, String weight)
     {
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = user.getUid();
 

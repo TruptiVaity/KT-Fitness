@@ -1,8 +1,10 @@
 package com.example.ktfit;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,12 +34,6 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
 
-//        TextView user = (TextView) findViewById(R.id.email);
-//        email = user.getText().toString();
-//
-//        TextView pass = (TextView) findViewById(R.id.password);
-//        password = pass.getText().toString();
-
         Button signIn = (Button) findViewById(R.id.signIn);
         signIn.setOnClickListener(this);
 
@@ -47,15 +43,16 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         mAuth = FirebaseAuth.getInstance();
         myDatabaseRef = FirebaseDatabase.getInstance().getReference();
 
-
+        email = "";
+        password = "";
 
     }
 
     private void createAccount(String email, String password) {
         Log.d(TAG, "createAccount:" + email);
-//        if (!validateForm()) {
-//            return;
-//        }
+        if (!validateForm()) {
+            return;
+        }
 //
 //        showProgressBar();
 
@@ -83,6 +80,18 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
                             Toast.makeText(UserActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
+
+                            new AlertDialog.Builder(UserActivity.this)
+                                    .setTitle("Account Creation Failed")
+                                    .setMessage("Email and password must be more than 4 characters long.")
+                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                        }
+                                    })
+
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .show();
                         }
 
                         // [START_EXCLUDE]
@@ -96,9 +105,9 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
 
     private void signIn(String email, String password) {
         Log.d(TAG, "signIn:" + email);
-//        if (!validateForm()) {
-//            return;
-//        }
+        if (!validateForm()) {
+            return;
+        }
 
 //        showProgressBar();
 
@@ -123,6 +132,18 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
 
+                            new AlertDialog.Builder(UserActivity.this)
+                                    .setTitle("Authentication Failed")
+                                    .setMessage("Incorrect email and password combination.")
+                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                        }
+                                    })
+
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .show();
+
                         }
 
 //                        // [START_EXCLUDE]
@@ -144,8 +165,49 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         updateUI(currentUser);
     }
 
+    private boolean validateForm() {
+        boolean valid = true;
+
+        if (email.equals("")) {
+            valid = false;
+            new AlertDialog.Builder(UserActivity.this)
+                    .setTitle("Field Required")
+                    .setMessage("Please enter an email.")
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    })
+
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        }
+
+        if (password.equals("")) {
+            new AlertDialog.Builder(UserActivity.this)
+                    .setTitle("Field Required")
+                    .setMessage("Please enter a password.")
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    })
+
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+            valid = false;
+        }
+
+        return valid;
+    }
+
     private void updateUI(FirebaseUser currentUser) {
 
+    }
+
+    private void signOut() {
+        mAuth.signOut();
+        updateUI(null);
     }
 
     @Override
