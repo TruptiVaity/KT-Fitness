@@ -28,7 +28,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -42,6 +41,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
+
+import static androidx.core.app.NotificationCompat.VISIBILITY_PUBLIC;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Random;
 
 import static androidx.core.app.NotificationCompat.VISIBILITY_PUBLIC;
@@ -163,6 +167,7 @@ public class WaterCaffeineTrackerActivity extends AppCompatActivity{
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 updateInputGoal = updateInput.getText().toString();
+                sumWater = 0;
                 displayWaterLimit.setText(updateInputGoal);
                 waterGoal = Integer.parseInt(updateInputGoal);
                 Toast.makeText(getApplicationContext(),"Water Limit Recorded",Toast.LENGTH_SHORT).show();
@@ -190,6 +195,7 @@ public class WaterCaffeineTrackerActivity extends AppCompatActivity{
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 updateInputGoal = updateInput.getText().toString();
+                sumCoffee = 0;
                 displayCoffeeLimit.setText(updateInputGoal);
                 coffeeGoal = Integer.parseInt(updateInputGoal);
                 Toast.makeText(getApplicationContext(),"Coffee Limit Recorded",Toast.LENGTH_SHORT).show();
@@ -218,6 +224,7 @@ public class WaterCaffeineTrackerActivity extends AppCompatActivity{
                 updateInputGoal = updateInput.getText().toString();
                 waterIntake = Integer.parseInt(updateInputGoal);
                 sumWater = sumWater + waterIntake;
+                if(sumWater>=waterGoal){Toast.makeText(getBaseContext(),"Yayy!! Water Goal Acheived",Toast.LENGTH_SHORT).show();}
                 displayWaterIntake.setText(String.valueOf(sumWater));
                 myRef.child("my_app_user").child(uid).child("water").child(strDate).setValue(sumWater);
 
@@ -244,6 +251,7 @@ public class WaterCaffeineTrackerActivity extends AppCompatActivity{
                 updateInputGoal = updateInput.getText().toString();
                 coffeeIntake = Integer.parseInt(updateInputGoal);
                 sumCoffee = sumCoffee + coffeeIntake;
+                if(sumCoffee>=coffeeGoal){Toast.makeText(getBaseContext(),"Yayy!! Caffeine Goal Acheived",Toast.LENGTH_SHORT).show();}
                 displayCoffeeIntake.setText(String.valueOf(sumCoffee));
                 myRef.child("my_app_user").child(uid).child("caffeine").child(strDate).setValue(sumCoffee);
             }
@@ -363,7 +371,6 @@ public class WaterCaffeineTrackerActivity extends AppCompatActivity{
     protected void onStart() {
         super.onStart();
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
-
         updateWater = prefs.getBoolean("water input", false);
         updateCoffee = prefs.getBoolean("coffee input", false);
         if (updateWater || updateCoffee) {
@@ -384,34 +391,7 @@ public class WaterCaffeineTrackerActivity extends AppCompatActivity{
         editor.putInt("water total",sumWater);
         editor.apply();
     }
-    /**
-     private void sendAsAReminder(){
-     NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_2_ID)
-     .setSmallIcon(R.drawable.ic_launcher_background)
-     .setContentTitle("Tracker")
-     .setContentText("Drink Water")
-     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-     .setCategory(NotificationCompat.CATEGORY_REMINDER);
-     NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-     //notificationId is a unique int for each notification that you must define
-     notificationManager.notify(notificationTracker, builder.build());
-     }
-     **/
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private void saveInTextFile() {
-        try {
-
-            String fileContents = getTimeStamp().concat("\n");
-
-            FileOutputStream fileOutputStream = openFileOutput(FILE_NAME, MODE_APPEND);
-            fileOutputStream.write(fileContents.getBytes());
-            Toast.makeText(getBaseContext(),"Saved to file",Toast.LENGTH_SHORT).show();
-            fileOutputStream.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+}
 
 
 }
