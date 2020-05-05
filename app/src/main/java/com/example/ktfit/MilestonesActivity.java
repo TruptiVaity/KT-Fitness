@@ -50,6 +50,7 @@ public class MilestonesActivity extends AppCompatActivity {
     Object milestones;
     DatabaseReference milestonesRef;
     private static final String TAG = MilestonesActivity.class.getSimpleName();
+    String uid;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,28 +60,23 @@ public class MilestonesActivity extends AppCompatActivity {
         milestonesList = new ArrayList<Milestones>();
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String uid = user.getUid();
+        uid = user.getUid();
 
-        // Write a message to the database
+        getMilestones();
+    }
+
+    public void getMilestones()
+    {
+        milestonesList.clear();
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference();
 
-
-
         milestonesRef = myRef.child("my_app_user").child(uid).child("milestones");
-//        milestonesRef.limitToLast(10);
-
-//        milestonesRef = myRef.child("my_app_user").child(uid);
         milestonesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                milestones = dataSnapshot.getValue();
-//                Object m = dataSnapshot.getChildren();
-
-//                Log.d(TAG, "miles: " + milestones);
                 for (DataSnapshot mileSnapshot: dataSnapshot.getChildren()) {
-//                    boolean complete = (boolean) mileSnapshot.child("Start your first Run").getValue();
-//                    Object m = mileSnapshot.getValue();
                     Milestones m = new Milestones(mileSnapshot.getKey(), mileSnapshot.getValue().toString());
                     milestonesList.add(m);
                 }
@@ -92,23 +88,19 @@ public class MilestonesActivity extends AppCompatActivity {
                 throw databaseError.toException();
             }
         });
+    }
 
-
-//        milestonesRef.child("Complete an account").setValue(0);
-//        milestonesRef.child("Start your first Run").setValue(0);
-//        milestonesRef.child("Start your first Walk").setValue(1);
-//        milestonesRef.child("Start your first Cycle").setValue(1);
-
-
+    public void updateMilestones()
+    {
 
     }
 
-
     public void updateTables(){
-        TableLayout ll = findViewById(R.id.completed);
+        TableLayout lc = findViewById(R.id.completed);
+        TableLayout lu = findViewById(R.id.upcoming_table);
 
-
-
+        lc.removeAllViews();
+        lu.removeAllViews();
 
         for (int i = 0; i <milestonesList.size(); i++) { //loop through milestones
 
@@ -120,17 +112,33 @@ public class MilestonesActivity extends AppCompatActivity {
             ImageView image = new ImageView(this);
 
             ms.setGravity(Gravity.CENTER);
-            ms.setPadding(15, 10, 15, 10);
+            ms.setPadding(15, 0, 0, 0);
             ms.setText(milestonesList.get(i).mile);
             ms.setTextSize(20);
 
-            image.setImageResource(R.drawable.check);
-            image.setColorFilter(image.getContext().getResources().getColor(R.color.green), PorterDuff.Mode.SRC_ATOP);
 
-            row.addView(image);
-            row.addView(ms);
+            if (milestonesList.get(i).completed.equals("1"))
+            {
+                image.setImageResource(R.drawable.check);
+                image.setColorFilter(image.getContext().getResources().getColor(R.color.green), PorterDuff.Mode.SRC_ATOP);
 
-            ll.addView(row);
+                row.addView(image);
+                row.addView(ms);
+
+                //add to complete table
+                lc.addView(row);
+            }
+            else
+            {
+                image.setImageResource(R.drawable.box);
+
+                row.addView(image);
+                row.addView(ms);
+
+                //add to upcoming table
+                lu.addView(row);
+            }
+
         }
     }
 }

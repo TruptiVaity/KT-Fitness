@@ -1,5 +1,8 @@
 package com.example.ktfit;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -22,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.Calendar;
 
 public class UpdateWorkoutDetails extends AppCompatActivity {
     private DatePicker datePicker;
@@ -58,8 +62,18 @@ public class UpdateWorkoutDetails extends AppCompatActivity {
             public void onClick(View v) {
                 //TODO We need to save on click of this save button
                 savePlanInTextFile();
-                //insertPlan();
-                //finish();
+
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.HOUR_OF_DAY,23);
+                calendar.set(Calendar.MINUTE,59);
+                calendar.set(Calendar.SECOND,59);
+
+                Intent trackerIntent = new Intent(getApplicationContext(), Reminder.class);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),
+                        100, trackerIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+                AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
+                        calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY, pendingIntent);
             }
         });
 
@@ -88,7 +102,7 @@ public class UpdateWorkoutDetails extends AppCompatActivity {
                     if (selection.equals(getString(R.string.repeat_daily))) {
                         mRepeat = "REPEAT DAILY";
                     } else if (selection.equals(getString(R.string.repeat_weekly))) {
-                        mRepeat = "REPEAT DAILY";
+                        mRepeat = "REPEAT WEEKLY";
                     } else if (selection.equals(getString(R.string.repeat_monthly))) {
                         mRepeat = "REPEAT MONTHLY";
                     } else if (selection.equals(getString(R.string.repeat_never))) {

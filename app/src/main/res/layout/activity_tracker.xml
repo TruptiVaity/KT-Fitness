@@ -15,13 +15,23 @@
         android:gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="Water Tracker"
+            android:textSize="30dp" />
         <Button
             android:id="@+id/record_water_intake_button"
             android:layout_width="160dp"
             android:layout_height="60dp"
+            android:textSize="20dp"
+            android:textStyle="italic"
             android:background="@color/colorPrimary"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="60dp"
             android:text="Record Water Intake"
             app:layout_constraintLeft_toLeftOf="@id/display_water_intake" />
 
@@ -30,7 +40,8 @@
             android:layout_width="80dp"
             android:layout_height="60dp"
             android:layout_marginLeft="50dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="60dp"
+            android:textStyle="bold"
             android:gravity="center"
             android:textSize="25dp"
             android:background="@color/colorPrimary"
@@ -41,8 +52,10 @@
             android:id="@+id/set_water_limit_button"
             android:layout_width="160dp"
             android:layout_height="60dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="60dp"
             android:layout_marginTop="20dp"
+            android:textSize="20dp"
+            android:textStyle="italic"
             android:background="@color/colorPrimary"
             android:layout_below="@id/record_water_intake_button"
             android:text="SET WATER LIMIT"/>
@@ -56,6 +69,7 @@
             android:layout_marginTop="20dp"
             android:gravity="center"
             android:textSize="25dp"
+            android:textStyle="bold"
             android:background="@color/colorPrimary"
             android:layout_toRightOf="@id/set_water_limit_button"
             android:hint="(mls)" />
@@ -65,17 +79,27 @@
     <RelativeLayout
         android:id="@+id/coffeelayout"
         android:layout_below="@+id/waterLayout"
-        android:layout_marginTop="150dp"
-        android:gravity="center_horizontal"
+        android:layout_marginTop="130dp"
+        android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="Caffeine Tracker"
+            android:textSize="30dp" />
         <Button
             android:id="@+id/record_coffee_intake_button"
             android:layout_width="160dp"
             android:layout_height="60dp"
             android:background="@color/colorPrimary"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="60dp"
             android:layout_marginTop="50dp"
+            android:textSize="20dp"
+            android:textStyle="italic"
             android:text="Record Coffee Intake"
             app:layout_constraintLeft_toLeftOf="@id/display_coffee_intake" />
 
@@ -87,6 +111,7 @@
             android:layout_marginTop="50dp"
             android:gravity="center"
             android:textSize="25dp"
+            android:textStyle="bold"
             android:background="@color/colorPrimary"
             android:layout_toRightOf="@id/record_coffee_intake_button"
             android:hint="(mls)" />
@@ -95,8 +120,10 @@
             android:id="@+id/set_coffee_limit_button"
             android:layout_width="160dp"
             android:layout_height="60dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="60dp"
             android:layout_marginTop="20dp"
+            android:textSize="20dp"
+            android:textStyle="italic"
             android:background="@color/colorPrimary"
             android:layout_below="@id/record_coffee_intake_button"
             android:text="SET COFFEE LIMIT"/>
@@ -109,6 +136,7 @@
             android:layout_marginLeft="50dp"
             android:layout_marginTop="20dp"
             android:gravity="center"
+            android:textStyle="bold"
             android:textSize="25dp"
             android:background="@color/colorPrimary"
             android:layout_toRightOf="@id/set_coffee_limit_button"

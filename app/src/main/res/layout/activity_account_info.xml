@@ -88,13 +88,12 @@
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/lName2"
+                android:id="@+id/email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
                 android:ems="10"
-                android:enabled="false"
-                android:inputType="textPersonName" />
+                android:enabled="false" />
         </LinearLayout>
 
         <LinearLayout
@@ -110,17 +109,16 @@
                 android:layout_margin="5dp"
                 android:layout_weight="2"
                 android:gravity="right"
-                android:text="DOB"
+                android:text="DOB:"
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/lName3"
+                android:id="@+id/dob"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
                 android:ems="10"
-                android:enabled="false"
-                android:inputType="textPersonName" />
+                android:inputType="date" />
 
         </LinearLayout>
 
@@ -135,19 +133,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:gravity="right"
-                android:text="Height"
+                android:text="Height (in inches):"
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/lName4"
+                android:id="@+id/height"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight=".5"
+                android:layout_weight="1"
                 android:ems="10"
-                android:enabled="false"
-                android:inputType="textPersonName" />
+                android:enabled="true"
+                android:inputType="number" />
 
         </LinearLayout>
 
@@ -164,17 +162,17 @@
                 android:layout_margin="5dp"
                 android:layout_weight="2"
                 android:gravity="right"
-                android:text="Weight"
+                android:text="Weight (in lbs):"
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/lName5"
+                android:id="@+id/weight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight=".5"
+                android:layout_weight="1"
                 android:ems="10"
-                android:enabled="false"
-                android:inputType="textPersonName" />
+                android:enabled="true"
+                android:inputType="number" />
         </LinearLayout>
 
         <Button

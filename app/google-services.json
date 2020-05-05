@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "257266757939",
+    "firebase_url": "https://ktfit-d3c76.firebaseio.com",
+    "project_id": "ktfit-d3c76",
+    "storage_bucket": "ktfit-d3c76.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:257266757939:android:50058ca8459c4863fdce46",
+        "android_client_info": {
+          "package_name": "com.example.ktfit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "257266757939-v4467p8tb7ahh0ccpsja2shrrhrsghbn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ktfit",
+            "certificate_hash": "abdf270f36feb659f2cd20b63ec6d326efbffdd6"
+          }
+        },
+        {
+          "client_id": "257266757939-3222gj23irghodr9q5chsuukia387f7b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuKbo8TJ90U8Z2wBpP6dEFT9glxd9TYaw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "257266757939-3222gj23irghodr9q5chsuukia387f7b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

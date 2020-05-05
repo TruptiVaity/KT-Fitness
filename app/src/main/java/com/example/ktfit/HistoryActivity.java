@@ -11,21 +11,88 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+class History
+{
+    String date;
+    String duration;
+    String workout;
+
+    History(String da, String du, String w)
+    {
+        date = da;
+        duration = du;
+        workout = w;
+    }
+}
+
 public class HistoryActivity extends AppCompatActivity {
+
+    List<History> historyList;
+    String uid;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        uid = user.getUid();
 
-        init();
+        historyList = new ArrayList<History>();
+
+        getHistory();
     }
 
+    public void getHistory()
+    {
 
-    public void init(){
+        // get database reference
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference();
+
+        DatabaseReference friendRef = myRef.child("my_app_user").child(uid).child("workouts");
+
+        friendRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChildren())
+                {
+                    for (DataSnapshot hisSnapshot: dataSnapshot.getChildren()) {
+                        History h = new History(hisSnapshot.getKey(), hisSnapshot.child("Duration").getValue().toString(), hisSnapshot.child("WorkoutType").getValue().toString());
+                        historyList.add(h);
+                    }
+                    if (!historyList.isEmpty())
+                    {
+                        updateHistory();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                throw databaseError.toException();
+            }
+        });
+    }
+
+    public void updateHistory(){
         TableLayout ll = findViewById(R.id.history_table);
 
         ShapeDrawable border = new ShapeDrawable(new RectShape());
@@ -65,28 +132,29 @@ public class HistoryActivity extends AppCompatActivity {
         durationH.setBackgroundDrawable(border);
         durationH.setTypeface(null, Typeface.BOLD);
 
-        speedH.setGravity(Gravity.CENTER);
-        speedH.setPadding(15, 4, 15, 4);
-        speedH.setText("Speed");
-        speedH.setTextSize(18);
-        speedH.setBackgroundDrawable(border);
-        speedH.setTypeface(null, Typeface.BOLD);
-
-        caloriesH.setGravity(Gravity.CENTER);
-        caloriesH.setPadding(15, 4, 15, 4);
-        caloriesH.setText("Calories");
-        caloriesH.setTextSize(18);
-        caloriesH.setBackgroundDrawable(border);
-        caloriesH.setTypeface(null, Typeface.BOLD);
+//        speedH.setGravity(Gravity.CENTER);
+//        speedH.setPadding(15, 4, 15, 4);
+//        speedH.setText("Speed");
+//        speedH.setTextSize(18);
+//        speedH.setBackgroundDrawable(border);
+//        speedH.setTypeface(null, Typeface.BOLD);
+//
+//        caloriesH.setGravity(Gravity.CENTER);
+//        caloriesH.setPadding(15, 4, 15, 4);
+//        caloriesH.setText("Calories");
+//        caloriesH.setTextSize(18);
+//        caloriesH.setBackgroundDrawable(border);
+//        caloriesH.setTypeface(null, Typeface.BOLD);
 
         header.addView(dateH);
         header.addView(workoutH);
         header.addView(durationH);
-        header.addView(speedH);
-        header.addView(caloriesH);
+//        header.addView(speedH);
+//        header.addView(caloriesH);
         ll.addView(header);
 
-        for (int i = 0; i <2; i++) {
+        //loop through historyList
+        for (int i = 0; i <historyList.size(); i++) {
 
             TableRow row = new TableRow(this);
             TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
@@ -99,41 +167,45 @@ public class HistoryActivity extends AppCompatActivity {
             TextView speed = new TextView(this);
             TextView calories = new TextView(this);
 
+            Date dt = new Date();
+            SimpleDateFormat d = new SimpleDateFormat("MM/dd/yyyy' 'HH:mm:ss");
+            String strDate = d.format(dt);
+
             date.setGravity(Gravity.CENTER);
             date.setPadding(15, 4, 15, 4);
-            date.setText("3/29/2020");
+            date.setText(strDate);
             date.setTextSize(18);
             date.setBackgroundDrawable(border);
 
             workout.setGravity(Gravity.CENTER);
             workout.setPadding(15, 4, 15, 4);
-            workout.setText("Run");
+            workout.setText(historyList.get(i).workout);
             workout.setTextSize(18);
             workout.setBackgroundDrawable(border);
 
             duration.setGravity(Gravity.CENTER);
             duration.setPadding(15, 4, 15, 4);
-            duration.setText("00:45:02");
+            duration.setText(historyList.get(i).duration);
             duration.setTextSize(18);
             duration.setBackgroundDrawable(border);
 
-            speed.setGravity(Gravity.CENTER);
-            speed.setPadding(15, 4, 15, 4);
-            speed.setText("5 mph");
-            speed.setTextSize(18);
-            speed.setBackgroundDrawable(border);
-
-            calories.setGravity(Gravity.CENTER);
-            calories.setPadding(15, 4, 15, 4);
-            calories.setText("63 kcal");
-            calories.setTextSize(18);
-            calories.setBackgroundDrawable(border);
+//            speed.setGravity(Gravity.CENTER);
+//            speed.setPadding(15, 4, 15, 4);
+//            speed.setText("5 mph");
+//            speed.setTextSize(18);
+//            speed.setBackgroundDrawable(border);
+//
+//            calories.setGravity(Gravity.CENTER);
+//            calories.setPadding(15, 4, 15, 4);
+//            calories.setText("63 kcal");
+//            calories.setTextSize(18);
+//            calories.setBackgroundDrawable(border);
 
             row.addView(date);
             row.addView(workout);
             row.addView(duration);
-            row.addView(speed);
-            row.addView(calories);
+//            row.addView(speed);
+//            row.addView(calories);
             ll.addView(row);
 
         }

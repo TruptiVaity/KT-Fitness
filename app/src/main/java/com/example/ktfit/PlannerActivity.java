@@ -20,6 +20,7 @@ import java.util.List;
 public class PlannerActivity extends AppCompatActivity{
     private String sessionID = null;
     private String Check_TAG = "SPINNER";
+    private int mRepeat;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +50,8 @@ public class PlannerActivity extends AppCompatActivity{
                 startActivity(updateIntent);
             }
         });
-
+      //  Intent mIntent = getIntent();
+      //  mRepeat = mIntent.getIntExtra("repeat_frequency",0);
     }
 
 }
