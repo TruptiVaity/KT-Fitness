@@ -179,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         String strDate = d.format(dt);
 
         //add new friend to db
-        myRef.child("my_app_user").child(uid).child("steps").child(strDate).setValue(TotalnumSteps);
+        myRef.child("my_app_user").child(uid).child("steps").child(strDate).setValue(StepsPerDay);
         myRef.child("my_app_user").child(uid).child("activeMins").child(strDate).setValue(Minutes + ":"+ String.format("%02d", Seconds) + ":"+ String.format("%03d", MilliSeconds));
 
     }
@@ -220,6 +220,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         editor.putLong("steps", StepsPerDay);
         editor.putBoolean("isSensorRunning", isSensorRunning);
         editor.apply();
+        saveStepsAndActiveMins();
     }
     @Override
     protected void onStart() {
@@ -229,6 +230,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         if (isSensorRunning) {
             StepsPerDay = prefs.getInt("steps", StepsPerDay);
         }
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference();
+
+        Date dt = new Date();
+        SimpleDateFormat d = new SimpleDateFormat("MM-dd-yyyy");
+        String strDate = d.format(dt);
+
     }
 
     @Override
@@ -335,7 +344,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             TotalnumSteps = 0;
             StepsPerDay = 0;
         }
-        saveStepsAndActiveMins();
     }
 
     @Override

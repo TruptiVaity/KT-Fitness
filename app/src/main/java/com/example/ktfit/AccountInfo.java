@@ -108,6 +108,8 @@ public class AccountInfo extends AppCompatActivity implements View.OnClickListen
         myRef.child("my_app_user").child(uid).child("height").setValue(height);
         myRef.child("my_app_user").child(uid).child("weight").setValue(weight);
 
+        myRef.child("my_app_user").child(uid).child("water").child("goal").setValue("0");
+        myRef.child("my_app_user").child(uid).child("caffeine").child("goal").setValue("0");
 
         DatabaseReference milestonesRef = myRef.child("my_app_user").child(uid).child("milestones");
         milestonesRef.child("Create an account").setValue(1);
