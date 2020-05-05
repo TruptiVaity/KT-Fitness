@@ -20,27 +20,24 @@ import java.util.List;
 public class PlannerActivity extends AppCompatActivity{
     private String sessionID = null;
     private String Check_TAG = "SPINNER";
-<<<<<<< HEAD
     private int mRepeat;
-=======
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_planner);
 
         CalendarView calendarView = findViewById(R.id.calendar);
-            calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-                @Override
-                public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                    int array[] = {year,month,dayOfMonth};
-                    // TODO Click on the calendar should call the update workout details page
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                int array[] = {year,month,dayOfMonth};
+                // TODO Click on the calendar should call the update workout details page
 
-                    Intent updateIntent = new Intent(PlannerActivity.this, UpdateWorkoutDetails.class);
-                    updateIntent.putExtra("date", array);
-                    //updateIntent.putIntegerArrayListExtra(array)
-                    startActivity(updateIntent);
-                }
+                Intent updateIntent = new Intent(PlannerActivity.this, UpdateWorkoutDetails.class);
+                updateIntent.putExtra("date", array);
+                //updateIntent.putIntegerArrayListExtra(array)
+                startActivity(updateIntent);
+            }
 
         });
 
@@ -53,12 +50,8 @@ public class PlannerActivity extends AppCompatActivity{
                 startActivity(updateIntent);
             }
         });
-<<<<<<< HEAD
-      //  Intent mIntent = getIntent();
-      //  mRepeat = mIntent.getIntExtra("repeat_frequency",0);
-=======
-
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
+        //  Intent mIntent = getIntent();
+        //  mRepeat = mIntent.getIntExtra("repeat_frequency",0);
     }
 
 }

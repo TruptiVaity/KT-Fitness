@@ -1,13 +1,10 @@
 package com.example.ktfit;
 
-<<<<<<< HEAD
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-=======
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,27 +18,18 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-<<<<<<< HEAD
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
-=======
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
 
 import java.io.FileOutputStream;
 
 import static com.example.ktfit.MainActivity.getTimeStamp;
-<<<<<<< HEAD
 import static com.example.ktfit.ViewNotification.CHANNEL_1_ID;
 
 public class StartWorkoutActivity extends AppCompatActivity {
     private NotificationManagerCompat notificationManager;
     private int notificationId = 1;
     public static final boolean FLAG_NO_CLEAR = false;
-=======
-
-public class StartWorkoutActivity extends AppCompatActivity {
-
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
     private static final String FILE_NAME = "workout_time_logger.txt";
     TextView walkView,runView,cycleView,otherView,timeView;
     public long MillisecondTime, StartTime, TimeBuff, UpdateTime = 0L ;
@@ -56,21 +44,10 @@ public class StartWorkoutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_startworkout);
 
-<<<<<<< HEAD
         notificationManager = NotificationManagerCompat.from(this);
         handler = new Handler() ;
 
         timeView = (TextView) findViewById(R.id.input_time);
-=======
-        handler = new Handler() ;
-
-        walkView = (TextView) findViewById(R.id.walk);
-        runView = (TextView) findViewById(R.id.run);
-        cycleView = (TextView) findViewById(R.id.cycle);
-        otherView = (TextView) findViewById(R.id.other);
-        timeView = (TextView) findViewById(R.id.input_time);
-
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
         start = (Button)findViewById(R.id.startbutton);
         pause = (Button)findViewById(R.id.pausebutton);
         reset = (Button)findViewById(R.id.resetbutton);
@@ -80,11 +57,7 @@ public class StartWorkoutActivity extends AppCompatActivity {
         pause.setEnabled(false);
         reset.setEnabled(false);
         lap.setEnabled(false);
-<<<<<<< HEAD
         walkView = findViewById(R.id.walk);
-=======
-
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
         walkView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,10 +70,7 @@ public class StartWorkoutActivity extends AppCompatActivity {
                 otherView.setEnabled(false);
             }
         });
-<<<<<<< HEAD
         runView = (TextView) findViewById(R.id.run);
-=======
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
         runView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,10 +84,7 @@ public class StartWorkoutActivity extends AppCompatActivity {
 
             }
         });
-<<<<<<< HEAD
         cycleView = (TextView) findViewById(R.id.cycle);
-=======
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
         cycleView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,10 +98,7 @@ public class StartWorkoutActivity extends AppCompatActivity {
 
             }
         });
-<<<<<<< HEAD
         otherView = (TextView) findViewById(R.id.other);
-=======
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
         otherView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,10 +112,7 @@ public class StartWorkoutActivity extends AppCompatActivity {
 
             }
         });
-<<<<<<< HEAD
 
-=======
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -159,10 +120,7 @@ public class StartWorkoutActivity extends AppCompatActivity {
                 StartTime = SystemClock.uptimeMillis();
                 handler.postDelayed(runnable, 0);
                 reset.setEnabled(false);
-<<<<<<< HEAD
                 sendOnStart(R.id.input_time);
-=======
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
             }
         });
 
@@ -196,10 +154,7 @@ public class StartWorkoutActivity extends AppCompatActivity {
                 cycleView.setEnabled(true);
                 otherView.setEnabled(true);
                 timeView.setText("00:00:00");
-<<<<<<< HEAD
 
-=======
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
             }
         });
         lap.setOnClickListener(new View.OnClickListener() {
@@ -233,7 +188,6 @@ public class StartWorkoutActivity extends AppCompatActivity {
 
     };
 
-<<<<<<< HEAD
     private void sendOnStart(int v){
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_1_ID)
                 .setSmallIcon(R.drawable.ic_launcher_background)
@@ -246,8 +200,6 @@ public class StartWorkoutActivity extends AppCompatActivity {
         notificationManager.notify(notificationId, builder.build());
     }
 
-=======
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
     @Override
     protected void onStop() {
         super.onStop();
@@ -267,30 +219,7 @@ public class StartWorkoutActivity extends AppCompatActivity {
             MillisecondTime = prefs.getLong("millisCovered", MillisecondTime);
         }
     }
-<<<<<<< HEAD
 
-=======
-/**    @Override
-    protected void  onResume(){
-        super.onResume();
-        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putLong("millisLeft", UpdateTime);
-        editor.putBoolean("timerRunning", mTimerRunning);
-        editor.apply();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
-        mTimerRunning = prefs.getBoolean("timerRunning", false);
-        if (mTimerRunning) {
-            MillisecondTime = prefs.getLong("millisCovered", MillisecondTime);
-        }
-    }
-**/
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void saveWorkoutTimeInTextFile() {
         try {
@@ -308,7 +237,6 @@ public class StartWorkoutActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-<<<<<<< HEAD
 }
 
 
@@ -340,19 +268,3 @@ editor.apply();
  }
  }
  **/
-=======
-/**
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
-        mTimerRunning = prefs.getBoolean("timerRunning", false);
-        if (mTimerRunning) {
-            MillisecondTime = prefs.getLong("millisCovered", MillisecondTime);
-        }
-    }
-    **/
-}
-
-
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba

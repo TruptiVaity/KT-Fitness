@@ -5,16 +5,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-<<<<<<< HEAD
     android:gravity="center"
-=======
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/time"
-<<<<<<< HEAD
         android:layout_width="95dp"
         android:layout_height="50dp"
         android:gravity="center"
@@ -55,60 +51,11 @@
         android:textStyle="bold"
         android:layout_marginLeft="85dp"
         android:layout_marginTop="250dp"
-=======
-        android:layout_width="80dp"
-        android:layout_height="30dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="100dp"
-        android:text="Time:"
-         />
-    <TextView
-        android:id="@+id/pace"
-        android:layout_width="80dp"
-        android:layout_height="30dp"
-        android:layout_marginLeft="100dp"
-        android:text="Pace:"
-        android:layout_below="@id/time"
-        />
-    <TextView
-        android:id="@+id/input_time"
-        android:layout_width="80dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="100dp"
-        android:layout_toRightOf="@id/time"
-        android:hint="00:00:00"
-        />
-    <TextView
-        android:id="@+id/input_pace"
-        android:layout_width="80dp"
-        android:layout_height="30dp"
-        android:layout_below="@id/input_time"
-        android:layout_toRightOf="@id/pace"
-        android:hint="pace"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="60dp"
-        android:gravity="center_horizontal"
-        android:text="Current Workout Session"
-        android:textSize="20dp" />
-    <TextView
-        android:id="@+id/walk"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
-        android:background="@color/colorPrimary"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="200dp"
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
         android:text="WALK"
         app:layout_constraintLeft_toLeftOf="@id/run" />
 
     <TextView
         android:id="@+id/run"
-<<<<<<< HEAD
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:layout_marginLeft="50dp"
@@ -116,19 +63,12 @@
         android:textSize="25dp"
         android:gravity="center"
         android:textStyle="bold"
-=======
-        android:layout_width="80dp"
-        android:layout_height="60dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="200dp"
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
         android:background="@color/colorPrimary"
         android:layout_toRightOf="@id/walk"
         android:text="RUN" />
 
     <TextView
         android:id="@+id/cycle"
-<<<<<<< HEAD
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:layout_marginLeft="85dp"
@@ -136,12 +76,6 @@
         android:textSize="25dp"
         android:gravity="center"
         android:textStyle="bold"
-=======
-        android:layout_width="80dp"
-        android:layout_height="60dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="20dp"
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
         android:background="@color/colorPrimary"
         android:layout_below="@id/walk"
         android:text="CYCLE"
@@ -151,7 +85,6 @@
 
     <TextView
         android:id="@+id/other"
-<<<<<<< HEAD
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:layout_below="@id/run"
@@ -160,13 +93,6 @@
         android:gravity="center"
         android:textStyle="bold"
         android:layout_marginTop="30dp"
-=======
-        android:layout_width="80dp"
-        android:layout_height="60dp"
-        android:layout_below="@id/run"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="20dp"
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
         android:background="@color/colorPrimary"
         android:layout_toRightOf="@id/cycle"
         android:text="OTHER" />
@@ -174,24 +100,15 @@
     <Button
         android:id="@+id/startbutton"
         android:layout_width="wrap_content"
-<<<<<<< HEAD
         android:layout_marginTop="550dp"
         android:layout_marginLeft="20dp"
         android:layout_height="wrap_content"
-=======
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
         android:text="Start" />
     <Button
         android:id="@+id/pausebutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
         android:layout_marginTop="550dp"
-=======
-        android:layout_alignParentBottom="true"
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
         android:layout_toEndOf="@id/startbutton"
         android:layout_toRightOf="@id/startbutton"
         android:text="Pause" />
@@ -201,11 +118,7 @@
         android:id="@+id/resetbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
         android:layout_marginTop="550dp"
-=======
-        android:layout_alignParentBottom="true"
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
         android:layout_toRightOf="@id/pausebutton"
         android:layout_toEndOf="@id/pausebutton"
         android:text="Reset" />
@@ -214,11 +127,7 @@
         android:id="@+id/lapbutton"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
         android:layout_marginTop="550dp"
-=======
-        android:layout_alignParentBottom="true"
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
         android:layout_toEndOf="@id/resetbutton"
         android:layout_toRightOf="@id/resetbutton"
         android:text="LAP" />

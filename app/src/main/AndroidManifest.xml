@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.ktfit">
 
-<<<<<<< HEAD
-    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION"/>
     <uses-feature
         android:name="android.hardware.sensor.stepcounter"
         android:required="true"/>
@@ -12,8 +10,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION"/>
     <uses-permission android:name="android.permission.SET_ALARM"/>
-=======
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -21,13 +18,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-<<<<<<< HEAD
         <activity android:name=".AccountInfo"/>
         <activity android:name=".MainActivity" />
         <activity android:name=".UserActivity">
-=======
-        <activity android:name=".MainActivity">
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -43,21 +37,15 @@
         <activity android:name=".MilestonesActivity"
             android:label="Milestones"/>
         <activity android:name=".HistoryActivity"
-<<<<<<< HEAD
-            android:label="Milestones"/>
+            android:label="History Records"/>
         <activity android:name=".FriendsActivity"
-            android:label="Milestones"/>
+            android:label="Connect With Friends"/>
         <activity android:name=".UpdateWorkoutDetails"
             android:label="Update Workout Details"/>
         <service android:name=".RecognizeActivityService"/>
         <service android:name=".DetectActivityIntentService"/>
         <receiver android:name=".Reminder"/>
 
-=======
-            android:label="History Records"/>
-        <activity android:name=".FriendsActivity"
-            android:label="Connect With Friends"/>
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
     </application>
 
 </manifest>

@@ -1,6 +1,5 @@
 package com.example.ktfit;
 
-<<<<<<< HEAD
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -13,11 +12,6 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
-=======
-import android.content.DialogInterface;
-import android.os.Build;
-import android.os.Bundle;
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
@@ -30,16 +24,12 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-<<<<<<< HEAD
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
-=======
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
 
 
 import java.io.FileOutputStream;
 import java.util.ArrayList;
-<<<<<<< HEAD
 import java.util.Calendar;
 import java.util.Random;
 
@@ -55,36 +45,14 @@ public class WaterCaffeineTrackerActivity extends AppCompatActivity{
     Button waterInput, coffeeInput, setWaterLimit, setCoffeeLimit;
     TextView displayWaterLimit, displayCoffeeLimit, displayWaterIntake, displayCoffeeIntake;
     String updateInputGoal;
-=======
-import java.util.Random;
-
-import static com.example.ktfit.MainActivity.getTimeStamp;
-
-public class WaterCaffeineTrackerActivity extends AppCompatActivity {
-    private static final String FILE_NAME = "tracker.txt";
-    AlertDialog.Builder builder;
-    //BarChart barChart;
-    //String BAR_TAG = "New Bar Entries";
-    //ArrayList<BarEntry> barEntries;
-    //ArrayList<String> theAmount;
-    //Random random;
-    Button waterInput, coffeeInput, setWaterLimit, setCoffeeLimit;
-    TextView displayWaterLimit, displayCoffeeLimit, displayWaterIntake, displayCoffeeIntake;
-    String updateInputGoal;
-    //BarDataSet barDataSet;
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
     boolean updateWater = false, updateCoffee = false;
     int waterGoal=0, waterIntake=0, coffeeGoal=0, coffeeIntake=0, sumWater =0,sumCoffee=0;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tracker);
-<<<<<<< HEAD
         notificationManager = NotificationManagerCompat.from(this);
         //sendAsAReminder();
-=======
-
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
 
         builder = new AlertDialog.Builder(this);
         waterInput = findViewById(R.id.record_water_intake_button);
@@ -95,11 +63,7 @@ public class WaterCaffeineTrackerActivity extends AppCompatActivity {
         displayCoffeeLimit = findViewById(R.id.display_coffee_limit);
         displayWaterIntake = findViewById(R.id.display_water_intake);
         displayCoffeeIntake = findViewById(R.id.display_coffee_intake);
-<<<<<<< HEAD
 
-=======
-       // createBarGraph();
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
         setWaterLimit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,7 +83,6 @@ public class WaterCaffeineTrackerActivity extends AppCompatActivity {
                 updateWater = true;
                 if(waterGoal!=0) {
                     recordWaterIntake();
-<<<<<<< HEAD
                     Intent trackerIntent = new Intent(WaterCaffeineTrackerActivity.this, Reminder.class);
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(WaterCaffeineTrackerActivity.this,
                             100,
@@ -134,12 +97,6 @@ public class WaterCaffeineTrackerActivity extends AppCompatActivity {
                     Toast.makeText(getBaseContext(),"Please Set the Limit",Toast.LENGTH_SHORT).show();
                 }
 
-=======
-                    //createBarGraph();
-                }else {
-                    Toast.makeText(getBaseContext(),"Please Set the Limit",Toast.LENGTH_SHORT).show();
-                }
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
             }
         });
         coffeeInput.setOnClickListener(new View.OnClickListener() {
@@ -148,7 +105,6 @@ public class WaterCaffeineTrackerActivity extends AppCompatActivity {
                 updateCoffee = true;
                 if(coffeeGoal!=0) {
                     recordCoffeeIntake();
-<<<<<<< HEAD
 
                     Intent trackerIntent = new Intent(WaterCaffeineTrackerActivity.this, Reminder.class);
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(WaterCaffeineTrackerActivity.this,
@@ -160,53 +116,14 @@ public class WaterCaffeineTrackerActivity extends AppCompatActivity {
                     long tensecondsInMillis = 1000 * 30;
                     alarmManager.set(AlarmManager.RTC_WAKEUP,
                             timeAtLastUpdate+tensecondsInMillis, pendingIntent);
-=======
-                    //createBarGraph();
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
                 }else {
                     Toast.makeText(getBaseContext(), "Please Set the Limit", Toast.LENGTH_SHORT).show();
                 }
 
-<<<<<<< HEAD
 
             }
         });
 
-=======
-            }
-        });
-
- /**   private void createBarGraph(){
-        random = new Random();
-        theAmount = new ArrayList<>();
-        barEntries = new ArrayList<>();
-        if(updateWater && waterIntake <= waterGoal) {
-            sumWater = sumWater + waterIntake;
-            barEntries.add(new BarEntry(sumWater, 0));
-            updateWater = false;
-            Toast.makeText(getApplicationContext(), String.valueOf(sumWater), Toast.LENGTH_SHORT).show();
-        }
-        if(updateCoffee && coffeeIntake <= coffeeGoal) {
-            sumCoffee = sumCoffee + coffeeIntake;
-            barEntries.add(new BarEntry(sumCoffee,1));
-            updateCoffee=false;
-            Toast.makeText(getApplicationContext(),String.valueOf(sumCoffee),Toast.LENGTH_SHORT).show();
-        }
-
-        Log.v("Adding bar graph entry",BAR_TAG);
-
-     //   barDataSet = new BarDataSet(barEntries,"Quantity in milliLitres");
-        theAmount.add("Water");
-        theAmount.add("Coffee");
-
-   BarData theData = new BarData(theAmount,barDataSet);
-        barChart.setData(theData);
-        barChart.setDescription("");
-        barChart.setTouchEnabled(true);
-        barChart.setDragEnabled(true);
-        barChart.setScaleEnabled(true);
-    **/
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
     }
 
     private void updateWaterGoal(){
@@ -222,10 +139,6 @@ public class WaterCaffeineTrackerActivity extends AppCompatActivity {
                 displayWaterLimit.setText(updateInputGoal);
                 waterGoal = Integer.parseInt(updateInputGoal);
                 Toast.makeText(getApplicationContext(),"Water Limit Recorded",Toast.LENGTH_SHORT).show();
-<<<<<<< HEAD
-=======
-                //createBarGraph();
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -250,10 +163,6 @@ public class WaterCaffeineTrackerActivity extends AppCompatActivity {
                 displayCoffeeLimit.setText(updateInputGoal);
                 coffeeGoal = Integer.parseInt(updateInputGoal);
                 Toast.makeText(getApplicationContext(),"Coffee Limit Recorded",Toast.LENGTH_SHORT).show();
-<<<<<<< HEAD
-=======
-                //createBarGraph();
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -315,7 +224,6 @@ public class WaterCaffeineTrackerActivity extends AppCompatActivity {
         builder.show();
     }
 
-<<<<<<< HEAD
     @Override
     protected void onStart() {
         super.onStart();
@@ -337,21 +245,19 @@ public class WaterCaffeineTrackerActivity extends AppCompatActivity {
         editor.putInt("water total",sumWater);
         editor.apply();
     }
-/**
-    private void sendAsAReminder(){
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_2_ID)
-                .setSmallIcon(R.drawable.ic_launcher_background)
-                .setContentTitle("Tracker")
-                .setContentText("Drink Water")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setCategory(NotificationCompat.CATEGORY_REMINDER);
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-    //notificationId is a unique int for each notification that you must define
-        notificationManager.notify(notificationTracker, builder.build());
-    }
-**/
-=======
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
+    /**
+     private void sendAsAReminder(){
+     NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_2_ID)
+     .setSmallIcon(R.drawable.ic_launcher_background)
+     .setContentTitle("Tracker")
+     .setContentText("Drink Water")
+     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+     .setCategory(NotificationCompat.CATEGORY_REMINDER);
+     NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+     //notificationId is a unique int for each notification that you must define
+     notificationManager.notify(notificationTracker, builder.build());
+     }
+     **/
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void saveInTextFile() {
         try {
@@ -367,9 +273,6 @@ public class WaterCaffeineTrackerActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-<<<<<<< HEAD
 
 
-=======
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
 }

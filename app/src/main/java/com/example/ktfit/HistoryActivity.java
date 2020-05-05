@@ -11,7 +11,6 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-<<<<<<< HEAD
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,18 +47,11 @@ public class HistoryActivity extends AppCompatActivity {
     List<History> historyList;
     String uid;
 
-=======
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-public class HistoryActivity extends AppCompatActivity {
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
-<<<<<<< HEAD
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         uid = user.getUid();
 
@@ -101,14 +93,6 @@ public class HistoryActivity extends AppCompatActivity {
     }
 
     public void updateHistory(){
-=======
-
-        init();
-    }
-
-
-    public void init(){
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
         TableLayout ll = findViewById(R.id.history_table);
 
         ShapeDrawable border = new ShapeDrawable(new RectShape());
@@ -148,7 +132,6 @@ public class HistoryActivity extends AppCompatActivity {
         durationH.setBackgroundDrawable(border);
         durationH.setTypeface(null, Typeface.BOLD);
 
-<<<<<<< HEAD
 //        speedH.setGravity(Gravity.CENTER);
 //        speedH.setPadding(15, 4, 15, 4);
 //        speedH.setText("Speed");
@@ -162,39 +145,16 @@ public class HistoryActivity extends AppCompatActivity {
 //        caloriesH.setTextSize(18);
 //        caloriesH.setBackgroundDrawable(border);
 //        caloriesH.setTypeface(null, Typeface.BOLD);
-=======
-        speedH.setGravity(Gravity.CENTER);
-        speedH.setPadding(15, 4, 15, 4);
-        speedH.setText("Speed");
-        speedH.setTextSize(18);
-        speedH.setBackgroundDrawable(border);
-        speedH.setTypeface(null, Typeface.BOLD);
-
-        caloriesH.setGravity(Gravity.CENTER);
-        caloriesH.setPadding(15, 4, 15, 4);
-        caloriesH.setText("Calories");
-        caloriesH.setTextSize(18);
-        caloriesH.setBackgroundDrawable(border);
-        caloriesH.setTypeface(null, Typeface.BOLD);
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
 
         header.addView(dateH);
         header.addView(workoutH);
         header.addView(durationH);
-<<<<<<< HEAD
 //        header.addView(speedH);
 //        header.addView(caloriesH);
         ll.addView(header);
 
         //loop through historyList
         for (int i = 0; i <historyList.size(); i++) {
-=======
-        header.addView(speedH);
-        header.addView(caloriesH);
-        ll.addView(header);
-
-        for (int i = 0; i <2; i++) {
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
 
             TableRow row = new TableRow(this);
             TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
@@ -207,7 +167,6 @@ public class HistoryActivity extends AppCompatActivity {
             TextView speed = new TextView(this);
             TextView calories = new TextView(this);
 
-<<<<<<< HEAD
             Date dt = new Date();
             SimpleDateFormat d = new SimpleDateFormat("MM/dd/yyyy' 'HH:mm:ss");
             String strDate = d.format(dt);
@@ -215,27 +174,17 @@ public class HistoryActivity extends AppCompatActivity {
             date.setGravity(Gravity.CENTER);
             date.setPadding(15, 4, 15, 4);
             date.setText(strDate);
-=======
-            date.setGravity(Gravity.CENTER);
-            date.setPadding(15, 4, 15, 4);
-            date.setText("3/29/2020");
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
             date.setTextSize(18);
             date.setBackgroundDrawable(border);
 
             workout.setGravity(Gravity.CENTER);
             workout.setPadding(15, 4, 15, 4);
-<<<<<<< HEAD
             workout.setText(historyList.get(i).workout);
-=======
-            workout.setText("Run");
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
             workout.setTextSize(18);
             workout.setBackgroundDrawable(border);
 
             duration.setGravity(Gravity.CENTER);
             duration.setPadding(15, 4, 15, 4);
-<<<<<<< HEAD
             duration.setText(historyList.get(i).duration);
             duration.setTextSize(18);
             duration.setBackgroundDrawable(border);
@@ -251,34 +200,12 @@ public class HistoryActivity extends AppCompatActivity {
 //            calories.setText("63 kcal");
 //            calories.setTextSize(18);
 //            calories.setBackgroundDrawable(border);
-=======
-            duration.setText("00:45:02");
-            duration.setTextSize(18);
-            duration.setBackgroundDrawable(border);
-
-            speed.setGravity(Gravity.CENTER);
-            speed.setPadding(15, 4, 15, 4);
-            speed.setText("5 mph");
-            speed.setTextSize(18);
-            speed.setBackgroundDrawable(border);
-
-            calories.setGravity(Gravity.CENTER);
-            calories.setPadding(15, 4, 15, 4);
-            calories.setText("63 kcal");
-            calories.setTextSize(18);
-            calories.setBackgroundDrawable(border);
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
 
             row.addView(date);
             row.addView(workout);
             row.addView(duration);
-<<<<<<< HEAD
 //            row.addView(speed);
 //            row.addView(calories);
-=======
-            row.addView(speed);
-            row.addView(calories);
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
             ll.addView(row);
 
         }

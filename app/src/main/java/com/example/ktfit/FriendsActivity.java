@@ -1,6 +1,5 @@
 package com.example.ktfit;
 
-<<<<<<< HEAD
 import android.content.DialogInterface;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -50,19 +49,10 @@ public class FriendsActivity extends AppCompatActivity {
     List<Friend> suggestionsList;
     String uid;
 
-=======
-import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-public class FriendsActivity extends AppCompatActivity {
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends);
-<<<<<<< HEAD
 
         friendsList = new ArrayList<Friend>();
         suggestionsList = new ArrayList<Friend>();
@@ -264,7 +254,4 @@ public class FriendsActivity extends AppCompatActivity {
         getSuggestions();
     }
 
-=======
-    }
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
 }

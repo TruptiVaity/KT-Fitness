@@ -1,20 +1,10 @@
 package com.example.ktfit;
-
-<<<<<<< HEAD
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-=======
-import android.content.ContentValues;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
-import android.text.TextUtils;
-import android.text.format.Time;
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -34,10 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
-<<<<<<< HEAD
 import java.util.Calendar;
-=======
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
 
 public class UpdateWorkoutDetails extends AppCompatActivity {
     private DatePicker datePicker;
@@ -74,7 +61,6 @@ public class UpdateWorkoutDetails extends AppCompatActivity {
             public void onClick(View v) {
                 //TODO We need to save on click of this save button
                 savePlanInTextFile();
-<<<<<<< HEAD
 
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(Calendar.HOUR_OF_DAY,23);
@@ -87,10 +73,7 @@ public class UpdateWorkoutDetails extends AppCompatActivity {
                 AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
                 alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
                         calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY, pendingIntent);
-=======
-                //insertPlan();
-                //finish();
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
+
             }
         });
 
@@ -119,11 +102,7 @@ public class UpdateWorkoutDetails extends AppCompatActivity {
                     if (selection.equals(getString(R.string.repeat_daily))) {
                         mRepeat = "REPEAT DAILY";
                     } else if (selection.equals(getString(R.string.repeat_weekly))) {
-<<<<<<< HEAD
                         mRepeat = "REPEAT WEEKLY";
-=======
-                        mRepeat = "REPEAT DAILY";
->>>>>>> fe598f4502890bc7ecfc3b12416407bfe46befba
                     } else if (selection.equals(getString(R.string.repeat_monthly))) {
                         mRepeat = "REPEAT MONTHLY";
                     } else if (selection.equals(getString(R.string.repeat_never))) {
