@@ -167,7 +167,7 @@ public class HistoryActivity extends AppCompatActivity {
             TextView speed = new TextView(this);
             TextView calories = new TextView(this);
 
-            Date dt = new Date();
+            Date dt = new Date(historyList.get(i).date);
             SimpleDateFormat d = new SimpleDateFormat("MM/dd/yyyy' 'HH:mm:ss");
             String strDate = d.format(dt);
 

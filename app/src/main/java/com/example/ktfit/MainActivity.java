@@ -35,6 +35,11 @@ import com.google.android.gms.location.DetectedActivity;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
@@ -63,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private static final String TEXT_NUM_STEPS_PER_DAY = "Number of Steps today: ";
     TextView viewDailySteps;
     Handler mHandler;
+    String uid;
 
     BroadcastReceiver broadcastReceiver;
     public static final String BROADCAST_DETECTED_ACTIVITY = "activity_intent";
@@ -86,8 +92,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mStepCounter = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
 
-
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        uid = user.getUid();
         String name = user.getDisplayName();
 
         TextView nText = (TextView) findViewById(R.id.name);
@@ -158,7 +164,26 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 startActivity(startWorkoutIntent);
             }
         });
+
+        saveStepsAndActiveMins();
     }
+
+    public void saveStepsAndActiveMins()
+    {
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference();
+
+        Date dt = new Date();
+        SimpleDateFormat d = new SimpleDateFormat("MM-dd-yyyy");
+        String strDate = d.format(dt);
+
+        //add new friend to db
+        myRef.child("my_app_user").child(uid).child("steps").child(strDate).setValue(TotalnumSteps);
+        myRef.child("my_app_user").child(uid).child("activeMins").child(strDate).setValue(Minutes + ":"+ String.format("%02d", Seconds) + ":"+ String.format("%03d", MilliSeconds));
+
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -297,6 +322,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             TotalnumSteps = 0;
             StepsPerDay = 0;
         }
+        saveStepsAndActiveMins();
     }
 
     @Override
