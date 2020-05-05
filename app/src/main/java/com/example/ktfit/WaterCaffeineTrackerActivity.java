@@ -258,7 +258,7 @@ public class WaterCaffeineTrackerActivity extends AppCompatActivity{
         builder.show();
     }
 
-    
+
     public void getCaffeine()
     {
         final SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
