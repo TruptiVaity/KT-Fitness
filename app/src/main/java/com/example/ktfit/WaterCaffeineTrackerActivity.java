@@ -1,47 +1,44 @@
 package com.example.ktfit;
 
 import android.app.AlarmManager;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.CalendarContract;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Random;
-
-import static androidx.core.app.NotificationCompat.VISIBILITY_PUBLIC;
 import static com.example.ktfit.MainActivity.getTimeStamp;
-import static com.example.ktfit.ViewNotification.CHANNEL_2_ID;
 
 public class WaterCaffeineTrackerActivity extends AppCompatActivity{
     private NotificationManagerCompat notificationManager;
     private int notificationTracker = 2;
     private static final String FILE_NAME = "tracker.txt";
     AlertDialog.Builder builder;
+    String uid;
+    DatabaseReference trackerRef;
     Button waterInput, coffeeInput, setWaterLimit, setCoffeeLimit;
     TextView displayWaterLimit, displayCoffeeLimit, displayWaterIntake, displayCoffeeIntake;
     String updateInputGoal;
@@ -52,7 +49,9 @@ public class WaterCaffeineTrackerActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tracker);
         notificationManager = NotificationManagerCompat.from(this);
-        //sendAsAReminder();
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        uid = user.getUid();
 
         builder = new AlertDialog.Builder(this);
         waterInput = findViewById(R.id.record_water_intake_button);
@@ -63,7 +62,6 @@ public class WaterCaffeineTrackerActivity extends AppCompatActivity{
         displayCoffeeLimit = findViewById(R.id.display_coffee_limit);
         displayWaterIntake = findViewById(R.id.display_water_intake);
         displayCoffeeIntake = findViewById(R.id.display_coffee_intake);
-
         setWaterLimit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,6 +134,7 @@ public class WaterCaffeineTrackerActivity extends AppCompatActivity{
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 updateInputGoal = updateInput.getText().toString();
+                sumWater = 0;
                 displayWaterLimit.setText(updateInputGoal);
                 waterGoal = Integer.parseInt(updateInputGoal);
                 Toast.makeText(getApplicationContext(),"Water Limit Recorded",Toast.LENGTH_SHORT).show();
@@ -160,6 +159,7 @@ public class WaterCaffeineTrackerActivity extends AppCompatActivity{
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 updateInputGoal = updateInput.getText().toString();
+                sumCoffee = 0;
                 displayCoffeeLimit.setText(updateInputGoal);
                 coffeeGoal = Integer.parseInt(updateInputGoal);
                 Toast.makeText(getApplicationContext(),"Coffee Limit Recorded",Toast.LENGTH_SHORT).show();
@@ -186,6 +186,7 @@ public class WaterCaffeineTrackerActivity extends AppCompatActivity{
                 updateInputGoal = updateInput.getText().toString();
                 waterIntake = Integer.parseInt(updateInputGoal);
                 sumWater = sumWater + waterIntake;
+                if(sumWater>=waterGoal){Toast.makeText(getBaseContext(),"Yayy!! Water Goal Acheived",Toast.LENGTH_SHORT).show();}
                 displayWaterIntake.setText(String.valueOf(sumWater));
 
             }
@@ -211,6 +212,7 @@ public class WaterCaffeineTrackerActivity extends AppCompatActivity{
                 updateInputGoal = updateInput.getText().toString();
                 coffeeIntake = Integer.parseInt(updateInputGoal);
                 sumCoffee = sumCoffee + coffeeIntake;
+                if(sumCoffee>=coffeeGoal){Toast.makeText(getBaseContext(),"Yayy!! Caffeine Goal Acheived",Toast.LENGTH_SHORT).show();}
                 displayCoffeeIntake.setText(String.valueOf(sumCoffee));
             }
         });
@@ -245,34 +247,6 @@ public class WaterCaffeineTrackerActivity extends AppCompatActivity{
         editor.putInt("water total",sumWater);
         editor.apply();
     }
-    /**
-     private void sendAsAReminder(){
-     NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_2_ID)
-     .setSmallIcon(R.drawable.ic_launcher_background)
-     .setContentTitle("Tracker")
-     .setContentText("Drink Water")
-     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-     .setCategory(NotificationCompat.CATEGORY_REMINDER);
-     NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-     //notificationId is a unique int for each notification that you must define
-     notificationManager.notify(notificationTracker, builder.build());
-     }
-     **/
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private void saveInTextFile() {
-        try {
-
-            String fileContents = getTimeStamp().concat("\n");
-
-            FileOutputStream fileOutputStream = openFileOutput(FILE_NAME, MODE_APPEND);
-            fileOutputStream.write(fileContents.getBytes());
-            Toast.makeText(getBaseContext(),"Saved to file",Toast.LENGTH_SHORT).show();
-            fileOutputStream.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
 }
+
+

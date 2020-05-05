@@ -250,20 +250,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     //Todo: Save the data and read it on app reopen
     //Save the data at the end of the day
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private void saveStepsInTextFile() {
-        try {
-            String fileContents = getTimeStamp().concat("\t" + TotalnumSteps + "\n");
 
-            FileOutputStream fileOutputStream = openFileOutput(FILE_NAME, MODE_APPEND);
-            fileOutputStream.write(fileContents.getBytes());
-            Toast.makeText(getBaseContext(), "Saved to file", Toast.LENGTH_SHORT).show();
-            fileOutputStream.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
     private void handleUserActivity(int type,int confidence){
         if (type != DetectedActivity.STILL){
             Toast.makeText(getApplicationContext(), "active", Toast.LENGTH_SHORT).show();
@@ -274,10 +261,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             Toast.makeText(getApplicationContext(), "still", Toast.LENGTH_SHORT).show();
             TimeBuff += MillisecondTime;
             mHandler.removeCallbacks(runnable);
+            stopTracking();
 
         }
     }
-    private void startTracking() {
+  private void startTracking() {
         Intent intent1 = new Intent(MainActivity.this, RecognizeActivityService.class);
         startService(intent1);
     }
@@ -286,6 +274,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         stopService(intent);
 
     }
+
     public static String getTimeStamp() {
         Time currentTime = new Time();
         currentTime.setToNow();
@@ -301,8 +290,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         nextday = c.get(Calendar.DAY_OF_MONTH) + 1;
         nextdaystr = Integer.toString(nextday);
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
-        //String currentDate = df.format(c.getTime());
-        //String dateTime = df.format(c.getTime());
         if (  !(daystr.equals(nextdaystr)) ) {
             StepsPerDay = InitialSensorValue - TotalnumSteps;
             StepsPerDay = InitialSensorValue -StepsPerDay;
@@ -314,11 +301,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        //   Intent intent = new Intent(MainActivity.this,RecognizeActivityService.class);
-        // PendingIntent pendingIntent = PendingIntent.getService(MainActivity.this,0,intent,
-        //        PendingIntent.FLAG_UPDATE_CURRENT);
-        //ActivityRecognition.ActivityRecognitionApi.requestActivityUpdates(mApiClient,3000,pendingIntent);
-
     }
 
     @Override
