@@ -83,7 +83,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
 
                             new AlertDialog.Builder(UserActivity.this)
                                     .setTitle("Account Creation Failed")
-                                    .setMessage("Email and password must be more than 4 characters long.")
+                                    .setMessage("Email and password must be more than 6 characters long.")
                                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
 

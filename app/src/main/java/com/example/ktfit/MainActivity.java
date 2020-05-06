@@ -57,6 +57,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private boolean isSensorRunning = false;
     TextView displayActiveMinutes;
     private static int InitialSensorValue, TotalnumSteps = 0, StepsPerDay = 0;
+    int stepsRecorded;
+    String activeMins;
     Calendar c;
     int dayat, nextday, activityNumber;
     public long MillisecondTime, StartTime, TimeBuff, UpdateTime = 0L ;
@@ -88,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 .build();
         mApiClient.connect();
 
+
         mHandler = new Handler();
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mStepCounter = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
@@ -95,6 +98,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         uid = user.getUid();
         String name = user.getDisplayName();
+
+        getSteps();
 
         TextView nText = (TextView) findViewById(R.id.name);
         if (name != null)
@@ -184,6 +189,37 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     }
 
+    public void getSteps()
+    {
+        // get database reference
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference();
+
+        DatabaseReference usersRef = myRef.child("my_app_user").child(uid);
+
+        usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot userSnapshot: dataSnapshot.getChildren()) {
+                   try {
+                       stepsRecorded = Integer.parseInt(userSnapshot.child("steps").getValue().toString());
+                       activeMins = userSnapshot.child("activeMins").getValue().toString();
+                   }
+                   catch(Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                throw databaseError.toException();
+            }
+        });
+
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -265,7 +301,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         InitialSensorValue = (int) event.values[0];
 
         updateStepsForNewDay();
-        viewDailySteps.setText(valueOf(StepsPerDay));
+        viewDailySteps.setText(valueOf(StepsPerDay + stepsRecorded));
         TotalnumSteps++;
         //StepsPerDay = InitialSensorValue -TotalnumSteps;
         //stepCountView.setText(TEXT_NUM_STEPS + valueOf(InitialSensorValue));
