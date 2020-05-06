@@ -4,6 +4,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -27,6 +29,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.FileOutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -46,6 +50,8 @@ public class StartWorkoutActivity extends AppCompatActivity {
     String WorkoutType;
     public int Seconds, Minutes, MilliSeconds ;
     public boolean mTimerRunning = false;
+    public boolean saved = false;
+    String startDate = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,6 +66,7 @@ public class StartWorkoutActivity extends AppCompatActivity {
         cycleView = (TextView) findViewById(R.id.cycle);
         otherView = (TextView) findViewById(R.id.other);
         timeView = (TextView) findViewById(R.id.input_time);
+        final TextView distanceText = findViewById(R.id.distanceText);
 
         start = (Button)findViewById(R.id.startbutton);
         pause = (Button)findViewById(R.id.pausebutton);
@@ -127,10 +134,21 @@ public class StartWorkoutActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mTimerRunning = true;
+
+                if (startDate.equals(""))
+                {
+                    DateFormat df = new SimpleDateFormat("dd-MM-yy HH:mm");
+                    Calendar calobj = Calendar.getInstance();
+                    startDate = df.format(calobj.getTime());
+                }
+
+                saved = false;
+
                 StartTime = SystemClock.uptimeMillis();
                 handler.postDelayed(runnable, 0);
                 reset.setEnabled(false);
                 sendOnStart(R.id.input_time);
+                distanceText.setEnabled(false);
             }
         });
 
@@ -143,6 +161,7 @@ public class StartWorkoutActivity extends AppCompatActivity {
                 saveWorkoutTimeInTextFile();
                 handler.removeCallbacks(runnable);
                 reset.setEnabled(true);
+                distanceText.setEnabled(true);
             }
         });
 
@@ -150,8 +169,19 @@ public class StartWorkoutActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
+                if ((distanceText.getText().toString()).equals(""))
+                {
+                    new AlertDialog.Builder(StartWorkoutActivity.this)
+                            .setTitle("Invalid Distance")
+                            .setMessage("Please input workout distance.")
+                            .setPositiveButton(android.R.string.yes, null)
+                            .setIcon(android.R.drawable.alert_dark_frame)
+                            .show();
+                    return;
+                }
                 mTimerRunning = false;
                 saveToDB();
+                saved = true;
                 saveWorkoutTimeInTextFile();
                 MillisecondTime = 0L ;
                 StartTime = 0L ;
@@ -165,6 +195,8 @@ public class StartWorkoutActivity extends AppCompatActivity {
                 cycleView.setEnabled(true);
                 otherView.setEnabled(true);
                 timeView.setText("00:00:00");
+                distanceText.setText("");
+                startDate = "";
             }
         });
         lap.setOnClickListener(new View.OnClickListener() {
@@ -213,6 +245,21 @@ public class StartWorkoutActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        TextView distanceText = findViewById(R.id.distanceText);
+        if (!saved && Seconds != 0)
+        {
+            if ((distanceText.getText().toString()).equals(""))
+            {
+                new AlertDialog.Builder(StartWorkoutActivity.this)
+                        .setTitle("Invalid Distance")
+                        .setMessage("Please input workout distance.")
+                        .setPositiveButton(android.R.string.yes, null)
+                        .setIcon(android.R.drawable.alert_dark_frame)
+                        .show();
+                return;
+            }
+            saveToDB();
+        }
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putLong("millisLeft", UpdateTime);
@@ -231,14 +278,17 @@ public class StartWorkoutActivity extends AppCompatActivity {
 
         DatabaseReference workoutRef = myRef.child("my_app_user").child(uid).child("workouts");
 
-        Date currentTime = Calendar.getInstance().getTime();
-        String duration = Minutes + ":" + String.format("%02d", Seconds) + ":" + String.format("%03d", MilliSeconds);
+        TextView dText = findViewById(R.id.distanceText);
+        Double distance = Double.parseDouble(dText.getText().toString());
+        String duration = Minutes + ":" + String.format("%02d", Seconds);
+        Double totalSecs = new Double ((Minutes*60) + Seconds);
+        Double totalHours = totalSecs / 3600;
+        Double speed = distance / totalHours;
 
-
-        workoutRef.child(currentTime.toString()).child("WorkoutType").setValue(WorkoutType.toString());
-        workoutRef.child(currentTime.toString()).child("Duration").setValue(duration);
-//        workoutRef.child(currentTime.toString()).child("Speed").setValue(WorkoutType.toString());
-//        workoutRef.child(currentTime.toString()).child("Calories").setValue(WorkoutType.toString());
+        workoutRef.child(startDate).child("WorkoutType").setValue(WorkoutType);
+        workoutRef.child(startDate).child("Duration").setValue(duration);
+        workoutRef.child(startDate).child("Distance").setValue(distance.toString());
+        workoutRef.child(startDate).child("Speed").setValue(speed.toString());
     }
 
     @Override

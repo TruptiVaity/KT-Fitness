@@ -78,13 +78,16 @@ public class FriendsActivity extends AppCompatActivity {
         friendRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot friendSnapshot: dataSnapshot.getChildren()) {
-                    Friend f = new Friend(friendSnapshot.getKey(), friendSnapshot.child("fname").getValue().toString(), friendSnapshot.child("lname").getValue().toString());
-                    friendsList.add(f);
-                }
-                if (!friendsList.isEmpty())
+                if (dataSnapshot.hasChildren())
                 {
-                    updateFriendList();
+                    for (DataSnapshot friendSnapshot: dataSnapshot.getChildren()) {
+                        Friend f = new Friend(friendSnapshot.getKey(), friendSnapshot.child("fname").getValue().toString(), friendSnapshot.child("lname").getValue().toString());
+                        friendsList.add(f);
+                    }
+                    if (!friendsList.isEmpty())
+                    {
+                        updateFriendList();
+                    }
                 }
 
             }
@@ -110,17 +113,22 @@ public class FriendsActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot suggSnapshot: dataSnapshot.getChildren()) {
-                    if (!uid.equals(suggSnapshot.getKey()))
-                    {
-                        Friend f = new Friend(suggSnapshot.getKey(), suggSnapshot.child("fname").getValue().toString(), suggSnapshot.child("lname").getValue().toString());
-                        boolean contains = false;
-                        for (int i=0; i<friendsList.size(); i++)
+                    if (!uid.equals(suggSnapshot.getKey())) {
+                        try
                         {
-                            if (friendsList.get(i).uid.equals(suggSnapshot.getKey()))
-                                contains = true;
+                            Friend f = new Friend(suggSnapshot.getKey(), suggSnapshot.child("fname").getValue().toString(), suggSnapshot.child("lname").getValue().toString());
+                            boolean contains = false;
+                            for (int i = 0; i < friendsList.size(); i++) {
+                                if (friendsList.get(i).uid.equals(suggSnapshot.getKey()))
+                                    contains = true;
+                            }
+                            if (!contains)
+                                suggestionsList.add(f);
                         }
-                        if (!contains)
-                            suggestionsList.add(f);
+                        catch(Exception e)
+                        {
+                            e.printStackTrace();
+                        }
                     }
                 }
 

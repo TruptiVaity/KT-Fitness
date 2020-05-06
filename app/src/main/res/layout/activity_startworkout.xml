@@ -21,6 +21,16 @@
         />
 
     <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/input_time"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@id/distanceText"
+        android:text="miles"
+        android:textSize="18sp" />
+
+    <TextView
         android:id="@+id/input_time"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
@@ -41,6 +51,36 @@
         android:textStyle="bold"
         android:text="Current Workout Session"
         android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/input_time"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="10dp"
+        android:text="Distance:"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/distanceText"
+        android:layout_marginLeft="20dp"
+        android:text="*Enter total distance after workout*" />
+
+    <EditText
+        android:id="@+id/distanceText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/input_time"
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:enabled="false"
+        android:inputType="numberDecimal" />
+
     <TextView
         android:id="@+id/walk"
         android:layout_width="90dp"

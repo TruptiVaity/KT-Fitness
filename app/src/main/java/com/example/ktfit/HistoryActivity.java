@@ -33,12 +33,16 @@ class History
     String date;
     String duration;
     String workout;
+    String distance;
+    String speed;
 
-    History(String da, String du, String w)
+    History(String da, String du, String w, String dis, String sp)
     {
         date = da;
         duration = du;
         workout = w;
+        distance = dis;
+        speed = sp;
     }
 }
 
@@ -75,7 +79,9 @@ public class HistoryActivity extends AppCompatActivity {
                 if (dataSnapshot.hasChildren())
                 {
                     for (DataSnapshot hisSnapshot: dataSnapshot.getChildren()) {
-                        History h = new History(hisSnapshot.getKey(), hisSnapshot.child("Duration").getValue().toString(), hisSnapshot.child("WorkoutType").getValue().toString());
+                        History h = new History(hisSnapshot.getKey(), hisSnapshot.child("Duration").getValue().toString(),
+                                hisSnapshot.child("WorkoutType").getValue().toString(), hisSnapshot.child("Distance").getValue().toString(),
+                                hisSnapshot.child("Speed").getValue().toString());
                         historyList.add(h);
                     }
                     if (!historyList.isEmpty())
@@ -107,8 +113,8 @@ public class HistoryActivity extends AppCompatActivity {
         TextView dateH = new TextView(this);
         TextView workoutH = new TextView(this);
         TextView durationH = new TextView(this);
-        TextView speedH = new TextView(this);
-        TextView caloriesH = new TextView(this);
+        TextView distanceH = new TextView(this);
+        TextView paceH = new TextView(this);
 
         dateH.setGravity(Gravity.CENTER);
         dateH.setPadding(15, 4, 15, 4);
@@ -132,25 +138,25 @@ public class HistoryActivity extends AppCompatActivity {
         durationH.setBackgroundDrawable(border);
         durationH.setTypeface(null, Typeface.BOLD);
 
-//        speedH.setGravity(Gravity.CENTER);
-//        speedH.setPadding(15, 4, 15, 4);
-//        speedH.setText("Speed");
-//        speedH.setTextSize(18);
-//        speedH.setBackgroundDrawable(border);
-//        speedH.setTypeface(null, Typeface.BOLD);
-//
-//        caloriesH.setGravity(Gravity.CENTER);
-//        caloriesH.setPadding(15, 4, 15, 4);
-//        caloriesH.setText("Calories");
-//        caloriesH.setTextSize(18);
-//        caloriesH.setBackgroundDrawable(border);
-//        caloriesH.setTypeface(null, Typeface.BOLD);
+        distanceH.setGravity(Gravity.CENTER);
+        distanceH.setPadding(15, 4, 15, 4);
+        distanceH.setText("Distance");
+        distanceH.setTextSize(18);
+        distanceH.setBackgroundDrawable(border);
+        distanceH.setTypeface(null, Typeface.BOLD);
+
+        paceH.setGravity(Gravity.CENTER);
+        paceH.setPadding(15, 4, 15, 4);
+        paceH.setText("Speed");
+        paceH.setTextSize(18);
+        paceH.setBackgroundDrawable(border);
+        paceH.setTypeface(null, Typeface.BOLD);
 
         header.addView(dateH);
         header.addView(workoutH);
         header.addView(durationH);
-//        header.addView(speedH);
-//        header.addView(caloriesH);
+        header.addView(distanceH);
+        header.addView(paceH);
         ll.addView(header);
 
         //loop through historyList
@@ -164,16 +170,12 @@ public class HistoryActivity extends AppCompatActivity {
             TextView date = new TextView(this);
             TextView workout = new TextView(this);
             TextView duration = new TextView(this);
-            TextView speed = new TextView(this);
-            TextView calories = new TextView(this);
-
-            Date dt = new Date(historyList.get(i).date);
-            SimpleDateFormat d = new SimpleDateFormat("MM/dd/yyyy' 'HH:mm:ss");
-            String strDate = d.format(dt);
+            TextView distance = new TextView(this);
+            TextView pace = new TextView(this);
 
             date.setGravity(Gravity.CENTER);
             date.setPadding(15, 4, 15, 4);
-            date.setText(strDate);
+            date.setText(historyList.get(i).date);
             date.setTextSize(18);
             date.setBackgroundDrawable(border);
 
@@ -189,23 +191,23 @@ public class HistoryActivity extends AppCompatActivity {
             duration.setTextSize(18);
             duration.setBackgroundDrawable(border);
 
-//            speed.setGravity(Gravity.CENTER);
-//            speed.setPadding(15, 4, 15, 4);
-//            speed.setText("5 mph");
-//            speed.setTextSize(18);
-//            speed.setBackgroundDrawable(border);
-//
-//            calories.setGravity(Gravity.CENTER);
-//            calories.setPadding(15, 4, 15, 4);
-//            calories.setText("63 kcal");
-//            calories.setTextSize(18);
-//            calories.setBackgroundDrawable(border);
+            distance.setGravity(Gravity.CENTER);
+            distance.setPadding(15, 4, 15, 4);
+            distance.setText(historyList.get(i).distance);
+            distance.setTextSize(18);
+            distance.setBackgroundDrawable(border);
+
+            pace.setGravity(Gravity.CENTER);
+            pace.setPadding(15, 4, 15, 4);
+            pace.setText(historyList.get(i).speed);
+            pace.setTextSize(18);
+            pace.setBackgroundDrawable(border);
 
             row.addView(date);
             row.addView(workout);
             row.addView(duration);
-//            row.addView(speed);
-//            row.addView(calories);
+            row.addView(distance);
+            row.addView(pace);
             ll.addView(row);
 
         }

@@ -57,8 +57,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private boolean isSensorRunning = false;
     TextView displayActiveMinutes;
     private static int InitialSensorValue, TotalnumSteps = 0, StepsPerDay = 0;
-    int stepsRecorded;
-    String activeMins;
+    int stepsRecorded = 0;
+    int minsRecorded = 0;
+    int secsRecorded = 0;
     Calendar c;
     int dayat, nextday, activityNumber;
     public long MillisecondTime, StartTime, TimeBuff, UpdateTime = 0L ;
@@ -76,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public static final String BROADCAST_DETECTED_ACTIVITY = "activity_intent";
     static final long DETECTION_INTERVAL_IN_MILLISECONDS = 30 * 1000;
     public static final int CONFIDENCE = 70;
+    String strDate;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -90,6 +92,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 .build();
         mApiClient.connect();
 
+        Date dt = new Date();
+        SimpleDateFormat d = new SimpleDateFormat("MM-dd-yyyy");
+        strDate = d.format(dt);
 
         mHandler = new Handler();
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -116,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     int confidence = intent.getIntExtra("confidence", 0);
                     handleUserActivity(type, confidence);
                 }
+
 
             }
         };
@@ -170,7 +176,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
         });
 
-        saveStepsAndActiveMins();
     }
 
     public void saveStepsAndActiveMins()
@@ -179,13 +184,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference();
 
-        Date dt = new Date();
-        SimpleDateFormat d = new SimpleDateFormat("MM-dd-yyyy");
-        String strDate = d.format(dt);
-
         //add new friend to db
-        myRef.child("my_app_user").child(uid).child("steps").child(strDate).setValue(StepsPerDay);
-        myRef.child("my_app_user").child(uid).child("activeMins").child(strDate).setValue(Minutes + ":"+ String.format("%02d", Seconds) + ":"+ String.format("%03d", MilliSeconds));
+        myRef.child("my_app_user").child(uid).child("steps").child(strDate).setValue(StepsPerDay + stepsRecorded);
+        myRef.child("my_app_user").child(uid).child("activeMins").child(strDate).setValue(Minutes + ":"+ String.format("%02d", Seconds));
 
     }
 
@@ -200,15 +201,22 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot userSnapshot: dataSnapshot.getChildren()) {
-                   try {
-                       stepsRecorded = Integer.parseInt(userSnapshot.child("steps").getValue().toString());
-                       activeMins = userSnapshot.child("activeMins").getValue().toString();
-                   }
-                   catch(Exception e)
-                    {
-                        e.printStackTrace();
-                    }
+               try {
+                   stepsRecorded = Integer.parseInt(dataSnapshot.child("steps").child(strDate).getValue().toString());
+                   String activeMins = dataSnapshot.child("activeMins").child(strDate).getValue().toString();
+
+                   String[] arrOfStr = activeMins.split(":");
+                   minsRecorded = Integer.parseInt(arrOfStr[0]);
+                   secsRecorded = Integer.parseInt(arrOfStr[1]);
+
+                   //get values from db and display
+                   viewDailySteps.setText(Integer.toString(stepsRecorded));
+                   displayActiveMinutes.setText(minsRecorded + ":" + secsRecorded);
+
+               }
+               catch(Exception e)
+                {
+                    e.printStackTrace();
                 }
             }
 
@@ -392,7 +400,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             Minutes = Seconds / 60;
             Seconds = Seconds % 60;
             MilliSeconds = (int) (UpdateTime % 1000);
-            displayActiveMinutes.setText("" + Minutes + ":"+ String.format("%02d", Seconds) + ":"+ String.format("%03d", MilliSeconds));
+
+            Integer totalMins = Minutes + minsRecorded;
+            Integer totalSecs = Seconds + secsRecorded;
+            displayActiveMinutes.setText(totalMins + ":"+ String.format("%02d", totalSecs));
             mHandler.postDelayed(this, 0);
         }
 

@@ -13,9 +13,26 @@
         android:text="Workout History"
         android:textSize="30sp" />
 
-    <TableLayout
-        android:id="@+id/history_table"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:stretchColumns="*" />
+        android:layout_height="match_parent">
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <TableLayout
+                    android:id="@+id/history_table"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:stretchColumns="*" />
+            </LinearLayout>
+        </HorizontalScrollView>
+    </ScrollView>
+
 </LinearLayout>
