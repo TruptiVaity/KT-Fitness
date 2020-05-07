@@ -104,14 +104,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         uid = user.getUid();
         String name = user.getDisplayName();
 
-        getSteps();
-
-        TextView nText = (TextView) findViewById(R.id.name);
-        if (name != null)
-            nText.setText("Hi " + name + "!");
-
         viewDailySteps = findViewById(R.id.view_daily_steps);
         displayActiveMinutes = findViewById(R.id.display_active_minutes);
+
+        getSteps();
 
         broadcastReceiver = new BroadcastReceiver() {
             @Override
@@ -176,6 +172,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
         });
 
+        TextView nText = (TextView) findViewById(R.id.name);
+        if (name != null)
+            nText.setText("Hi " + name + "!");
+
     }
 
     public void saveStepsAndActiveMins()
@@ -184,9 +184,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference();
 
+        Integer totalMins = Minutes + minsRecorded;
+        Integer totalSecs = Seconds + secsRecorded;
+
         //add new friend to db
         myRef.child("my_app_user").child(uid).child("steps").child(strDate).setValue(StepsPerDay + stepsRecorded);
-        myRef.child("my_app_user").child(uid).child("activeMins").child(strDate).setValue(Minutes + ":"+ String.format("%02d", Seconds));
+        myRef.child("my_app_user").child(uid).child("activeMins").child(strDate).setValue(totalMins + ":"+ String.format("%02d", totalSecs));
 
     }
 
@@ -275,13 +278,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             StepsPerDay = prefs.getInt("steps", StepsPerDay);
         }
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference();
-
-        Date dt = new Date();
-        SimpleDateFormat d = new SimpleDateFormat("MM-dd-yyyy");
-        String strDate = d.format(dt);
-
     }
 
     @Override
@@ -311,7 +307,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         updateStepsForNewDay();
         viewDailySteps.setText(valueOf(StepsPerDay + stepsRecorded));
         TotalnumSteps++;
-        //StepsPerDay = InitialSensorValue -TotalnumSteps;
+//        StepsPerDay = InitialSensorValue -TotalnumSteps;
         //stepCountView.setText(TEXT_NUM_STEPS + valueOf(InitialSensorValue));
 
         if (isSensorRunning) {
@@ -404,6 +400,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             Integer totalMins = Minutes + minsRecorded;
             Integer totalSecs = Seconds + secsRecorded;
             displayActiveMinutes.setText(totalMins + ":"+ String.format("%02d", totalSecs));
+//            displayActiveMinutes.setText("" + Minutes + ":"+ String.format("%02d", Seconds) + ":"+ String.format("%03d", MilliSeconds));
             mHandler.postDelayed(this, 0);
         }
 
