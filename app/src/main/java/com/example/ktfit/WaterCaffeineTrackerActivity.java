@@ -121,7 +121,7 @@ public class WaterCaffeineTrackerActivity extends AppCompatActivity{
 
                     AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
                     long timeAtLastUpdate = System.currentTimeMillis();
-                    long tensecondsInMillis = 1000 * 360 * 1;                //For reminder every 1 hour
+                    long tensecondsInMillis = 1000 * 3600 * 1;                //For reminder every 1 hour
                     alarmManager.set(AlarmManager.RTC_WAKEUP,
                             timeAtLastUpdate+tensecondsInMillis, pendingIntent);
                 }else {
@@ -144,7 +144,7 @@ public class WaterCaffeineTrackerActivity extends AppCompatActivity{
 
                     AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
                     long timeAtLastUpdate = System.currentTimeMillis();
-                    long tensecondsInMillis = 1000 * 360 * 1;
+                    long tensecondsInMillis = 1000 * 3600 * 1;
                     alarmManager.set(AlarmManager.RTC_WAKEUP,
                             timeAtLastUpdate+tensecondsInMillis, pendingIntent);
                 }else {
