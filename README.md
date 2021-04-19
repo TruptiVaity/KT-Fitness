@@ -6,3 +6,5 @@ Users will have the ability to track water and caffeine intake while providing d
 
 Demo Link for the Video:
 https://drive.google.com/file/d/1LmcSBeZouAUHVpz4SvZWYKQ12X85FqdL/view?usp=sharing
+
+![caption](https://drive.google.com/file/d/1LmcSBeZouAUHVpz4SvZWYKQ12X85FqdL/view?usp=sharing)
